@@ -1,0 +1,47 @@
+.favorites-title {
+  padding: 60px 0;
+
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.9;
+
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 20px;
+  line-height: 3;
+
+  text-align: center;
+}
+
+.favorite-cocktails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.cocktail-card {
+  padding: 20px;
+  width: 280px;
+
+  border: 1px solid $grapefruit;
+  border-radius: 4px;
+}
+
+.cocktail-name {
+  margin-bottom: 20px;
+
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1.6;
+}
+
+.cocktail-type {
+  margin-bottom: 20px;
+
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
