@@ -1,5 +1,5 @@
 {
-  "name": "parcel-project-template",
+  "name": "goit-js-project-cocktails",
   "version": "2.0.0",
   "description": "",
   "homepage": "https://volodymyr-ok.github.io/goit-js-project-cocktails",
@@ -12,13 +12,15 @@
     "url": "git+https://github.com/volodymyr-ok/goit-js-project-cocktails.git"
   },
   "keywords": [],
-  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
+  "author": "Volodymyr Ok <v.shark.t@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
   "dependencies": {
-    "modern-normalize": "^1.1.0"
+    "modern-normalize": "^1.1.0",
+    "node-sass": "^7.0.3",
+    "sass": "^1.55.0"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",

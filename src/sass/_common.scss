@@ -1,1 +1,15 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
+
+html {
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Roboto', sans-serif;
+}
