@@ -1,3 +1,6 @@
-@import './common';
 @import './utils/variables';
 @import './utils/mixins';
+@import './common';
+@import './components/container';
+@import './sections/header';
+@import './sections/hero';

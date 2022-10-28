@@ -1,0 +1,134 @@
+.header {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-right: auto;
+}
+
+.menu-open {
+  border: none;
+  background-color: $white;
+  cursor: pointer;
+}
+
+/*===================================MENU BURGER==========================*/
+.menu-burger.is-hidden {
+  display: none;
+}
+
+.menu-burger {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  padding: 90px 20px;
+
+  background-color: $white;
+}
+
+.menu-close {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background-color: $white;
+  cursor: pointer;
+}
+
+label {
+  position: relative;
+  display: block;
+  height: 40px;
+  margin-bottom: 40px;
+}
+
+input {
+  width: 240px;
+  padding: 10px 0 10px 40px;
+
+  border: 1px solid $grapefruit;
+  border-radius: 4px;
+}
+
+::placeholder {
+  color: rgba(95, 103, 117, 0.4);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+.search-btn {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 35px;
+  height: 38px;
+  padding: 0;
+  border: none;
+  border-right: 1px solid $grapefruit;
+  border-radius: 4px 0 0 4px;
+
+  background-color: $white;
+  cursor: pointer;
+}
+
+.home-link {
+  font-size: 28px;
+  line-height: 0.85;
+}
+
+.favorites {
+  margin: 0;
+
+  font-size: 28px;
+  line-height: 0.85;
+}
+
+.box {
+  margin-top: 32px;
+  width: 150px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.favorite-pages.is-hidden {
+  display: none;
+}
+
+.favorite-pages {
+  width: 150px;
+  height: 80px;
+  padding: 10px;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  text-align: left;
+  // box-shadow: 5px 1px 3px rgba(253, 82, 3, 0.12),
+  //   3px 1px 2px rgba(253, 82, 3, 0.14), 1px 3px 1px rgba(253, 82, 3, 0.2);
+  box-shadow: 2px 16px 27px -4px rgba(253, 82, 3, 0.5);
+  border-radius: 0px 0px 4px 4px;
+}
+
+.arrow-icon {
+  cursor: pointer;
+  /* transform: rotate();
+  transition: transform 500ms; */
+}
