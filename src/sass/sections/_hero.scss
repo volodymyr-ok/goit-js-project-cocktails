@@ -1,14 +1,101 @@
 /*===================================HERO=================================*/
 .hero {
-  padding: 60px 20px;
+  padding: 60px 20px 40px 20px;
+
+  @include tablet {
+    padding: 100px 32px 120px 32px;
+  }
 }
 
 .page-title {
-  margin-bottom: 60px;
   width: 300px;
 
   font-weight: 600;
   font-size: 22px;
   line-height: 1.9;
+  color: $grapefruit;
+
+  @include tablet {
+    font-size: 26px;
+    line-height: 1.6;
+    width: 338px;
+  }
+}
+
+.hero-image {
+  margin: 60px 0;
+
+  @include tablet {
+    position: absolute;
+    top: 77px;
+    right: 32px;
+
+    width: 336px;
+    height: 294px;
+  }
+}
+
+.search-descr {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 2;
+  text-align: center;
+
+  opacity: 0.8;
+
+  @include tablet {
+    margin: 40px 0;
+    text-align: left;
+  }
+}
+
+/*============================LETTERS SEARCH MOB=================================*/
+.select-box {
+  display: flex;
+  justify-content: center;
+
+  @include tablet {
+    display: none;
+  }
+}
+
+.select {
+  width: 93px;
+  height: 34px;
+  padding-left: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.3;
+
+  border: 1px solid $grapefruit;
+  border-radius: 4px;
+  color: $grapefruit;
+}
+
+option {
+  border: 1px solid $grapefruit;
+  border-radius: 4px;
+}
+
+/*============================LETTERS SEARCH TABLET=================================*/
+.letters-list {
+  display: none;
+  @include tablet {
+    width: 324px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 15px;
+
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.5;
+
+    color: $gray;
+  }
+}
+
+.current-letter {
   color: $grapefruit;
 }
