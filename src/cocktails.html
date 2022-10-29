@@ -15,9 +15,7 @@
 
   <body>
     <header class="header container">
-      <a href="./index.html" class="logo"
-        ><img src="./images/logo.png" alt="logo"
-      /></a>
+      <a href="#" class="logo"><img src="./images/logo.png" alt="logo" /></a>
       <button type="button" class="menu-open">
         <svg class="open-icon" width="32" height="16">
           <use href="./images/icons.svg#menu"></use>
@@ -45,7 +43,7 @@
         </label>
         <a href="./index.html" class="home-link">Home</a>
         <div class="favorites">
-          <a href="./cocktails.html" class="favorite-menu">Favorite</a>
+          <p class="favorite-menu">Favorite</p>
           <svg width="24" height="20" class="arrow-icon">
             <use href="./images/icons.svg#arrow"></use>
           </svg>
@@ -57,6 +55,30 @@
       </div>
     </header>
 
+    <section class="favorites-list container">
+      <h1 class="favorites-title">Favorite cocktails</h1>
+      <p class="empty-text">You haven't added any favorite cocktails yet</p>
+      <ul class="favorite-cocktails">
+        <li class="cocktail-card">
+          <h2 class="cocktail-name">name alcohol</h2>
+          <p class="cocktail-type">type alcohol</p>
+          <button type="button">Learn more</button>
+          <button type="button">Remove 🧡</button>
+        </li>
+        <li class="cocktail-card">
+          <h2 class="cocktail-name">name alcohol</h2>
+          <p class="cocktail-type">type alcohol</p>
+          <button type="button">Learn more</button>
+          <button type="button">Remove 🧡</button>
+        </li>
+        <li class="cocktail-card">
+          <h2 class="cocktail-name">name alcohol</h2>
+          <p class="cocktail-type">type alcohol</p>
+          <button type="button">Learn more</button>
+          <button type="button">Remove 🧡</button>
+        </li>
+      </ul>
+    </section>
     <script src="./index.js" type="module"></script>
   </body>
 </html>
