@@ -1,33 +1,64 @@
 const cocktailList = document.querySelector('.cocktails__list');
 const srchInput = document.querySelector('[name="cocktail-search"]');
 
-const ccktlsPerPage = 9;
+let cocktailsPerPage;
 
 srchInput.addEventListener('change', actionOnIput);
 
 async function actionOnIput() {
   try {
     const json = await fetchBySrch(srchInput.value);
-    console.log('json.drinks ==>', json.drinks);
+    const cocktailsArray = json.drinks;
 
     cocktailList.innerHTML = '';
 
-    if (json.drinks === null) {
+    if (cocktailsArray === null) {
       cocktailList.innerHTML = `<h2>НІЦ НЕМА</h2>`;
       return;
     }
 
+    // ===========================================
+
+    const pageNums = document.querySelectorAll('.pages__link');
+
+    if (innerWidth <= 320) {
+      cocktailsPerPage = 3;
+    } else if (innerWidth >= 768 && innerWidth < 1200) {
+      cocktailsPerPage = 6;
+    } else if (innerWidth >= 1200) {
+      cocktailsPerPage = 9;
+    }
+
+    let shownCocktails;
+
+    shownCocktails = cocktailsArray.slice(0, cocktailsPerPage);
     cocktailList.insertAdjacentHTML(
       'beforeend',
-      json.drinks.map(createMarkup).join('')
+      shownCocktails.map(createMarkup).join('')
     );
+
+    for (let pageNum of pageNums) {
+      const numOfPage = pageNum.textContent;
+      const pageStart = (+numOfPage - 1) * cocktailsPerPage;
+      const pageEnd = pageStart + cocktailsPerPage;
+
+      pageNum.addEventListener('click', event => {
+        shownCocktails = cocktailsArray.slice(pageStart, pageEnd);
+        console.log(shownCocktails);
+
+        return (cocktailList.innerHTML = shownCocktails
+          .map(createMarkup)
+          .join(''));
+      });
+    }
   } catch (error) {
-    throw new Error('Помилка після пошуку або розмітки ===> ' + error.message);
+    throw new Error('Помилка в actionOnIput ===> ' + error.message);
   }
 }
 
 async function fetchBySrch(entrie) {
   try {
+    console.log('перед фетчом');
     return await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${entrie}`
     ).then(response => response.json());
@@ -36,27 +67,20 @@ async function fetchBySrch(entrie) {
   }
 }
 
-function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
+function createMarkup({ strDrinkThumb, strDrink }) {
+  console.log('Початок створення розмітки');
   return `
-<li class="coctails__item">
-      <img src="${strDrinkThumb}" alt="${strDrink}" width="280" height="280" />
-      <h2 class="cocktails__item-title">${strDrink}</h2>
-      <div class="coctails__btns">
-        <button class="btn__read-more" type="button">Learn more</button>
-        <button class="btn__like" type="button">
-          Add to<svg class="btn__like-icon">
-            <use href="./images/icons.svg#icon-heart"></use>
-          </svg>
-        </button>
-      </div>
-    </li>
-`;
+          <li class="coctails__item">
+            <img src="${strDrinkThumb}" alt="${strDrink}" width="280" height="280" />
+            <h2 class="cocktails__item-title">${strDrink}</h2>
+            <div class="coctails__btns">
+              <button class="btn__read-more" type="button">Learn more</button>
+              <button class="btn__like" type="button">
+                Add to<svg class="btn__like-icon">
+                  <use href="./images/icons.svg#icon-heart"></use>
+                </svg>
+              </button>
+            </div>
+          </li>
+        `;
 }
-
-// <li class='random-item'>
-//         <img src='${strDrinkThumb}' alt='name: ${strDrink}' width='100px'>
-//         <h2>${strDrink}</h2>
-//         <!-- <p>id: ${idDrink}</p> -->
-//         <a href='../local-storage.html' class='learn-more-btn'>Learn more</a>
-//         <button class='save-to-strg-btn'>Add to ❤</button>
-//     </li>

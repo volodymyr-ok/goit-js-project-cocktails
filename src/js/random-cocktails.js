@@ -1,17 +1,28 @@
 const cocktailList = document.querySelector('.cocktails__list');
-// const getBtn = document.querySelector('.get-random');
+let cocktailsPerPage = 3;
 
-// console.log(innerWidth);
+// window.addEventListener('resize', resizeListener);
+
+// function resizeListener() {
+//   console.log('resizing viewport');
+//   cocktailsPerPage = window.innerWidth;
+// }
 
 getCocktails();
-// getBtn.addEventListener('click', getCocktail);
 
 async function getCocktails() {
+  console.log('* Start random with innerWidth *', innerWidth);
   try {
-    for (let i = 0; i < 9; i++) {
+    if (innerWidth <= 320) {
+      cocktailsPerPage = 3;
+    } else if (innerWidth >= 768 && innerWidth < 1200) {
+      cocktailsPerPage = 6;
+    } else if (innerWidth >= 1200) {
+      cocktailsPerPage = 9;
+    }
+
+    for (let i = 0; i < cocktailsPerPage; i++) {
       const result = await fetchRandomCocktail();
-      //   console.log(result);
-      //   console.log(result.drinks);
       cocktailList.insertAdjacentHTML(
         'beforeend',
         result.drinks.map(updateMarkup).join('')
@@ -19,11 +30,11 @@ async function getCocktails() {
 
       const learnMoreBtn = document.querySelector('.btn__read-more');
       learnMoreBtn.addEventListener('click', (event, item) => {
+        console.log('on click');
         console.log(event.target);
         console.log(event.currentTarget);
         console.log(item);
-
-        localStorage.setItem('favoriteCocktails', item);
+        // localStorage.setItem('favoriteCocktails', item);
       });
     }
   } catch (error) {
