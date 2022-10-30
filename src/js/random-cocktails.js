@@ -1,5 +1,7 @@
-const cocktailList = document.querySelector('.random-cocktail-list');
-const getBtn = document.querySelector('.get-random');
+const cocktailList = document.querySelector('.cocktails__list');
+// const getBtn = document.querySelector('.get-random');
+
+// console.log(innerWidth);
 
 getCocktails();
 // getBtn.addEventListener('click', getCocktail);
@@ -15,7 +17,7 @@ async function getCocktails() {
         result.drinks.map(updateMarkup).join('')
       );
 
-      const learnMoreBtn = document.querySelector('.learn-more-btn');
+      const learnMoreBtn = document.querySelector('.btn__read-more');
       learnMoreBtn.addEventListener('click', (event, item) => {
         console.log(event.target);
         console.log(event.currentTarget);
@@ -24,8 +26,8 @@ async function getCocktails() {
         localStorage.setItem('favoriteCocktails', item);
       });
     }
-  } catch {
-    throw new Error();
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -36,12 +38,20 @@ async function fetchRandomCocktail() {
   return randomCocktail.json();
 }
 
-const updateMarkup = ({ strDrink, idDrink, strDrinkThumb }) => `
-<li class='random-item'>
-<img src='${strDrinkThumb}' alt='name: ${strDrink}' width='100px'>
-<h2>${strDrink}</h2>
-<!-- <p>id: ${idDrink}</p> -->
-<a href='../local-storage.html' class='learn-more-btn'>Learn more</a>
-<button class='save-to-strg-btn'>Add to ❤</button>
+const updateMarkup = ({ strDrink, strDrinkThumb }) => `
+<li class="coctails__item">
+  <img src="${strDrinkThumb}" alt="${strDrink}" width="280" height="280" />
+  <h2 class="cocktails__item-title">${strDrink}</h2>
+  <div class="coctails__btns">
+    <button class="btn__read-more" type="button">
+      Learn more
+    </button>
+    <button class="btn__like" type="button">
+      Add to
+      <svg class="btn__like-icon">
+        <use href="./images/icons.svg#icon-heart"></use>
+      </svg>
+    </button>
+  </div>
 </li>
 `;

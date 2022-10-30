@@ -1,7 +1,7 @@
-const cocktailList = document.querySelector('.random-cocktail-list');
+const cocktailList = document.querySelector('.cocktails__list');
 const srchInput = document.querySelector('[name="cocktail-search"]');
 
-const perPage = 9;
+const ccktlsPerPage = 9;
 
 srchInput.addEventListener('change', actionOnIput);
 
@@ -38,12 +38,25 @@ async function fetchBySrch(entrie) {
 
 function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
   return `
-    <li class='random-item'>
-        <img src='${strDrinkThumb}' alt='name: ${strDrink}' width='100px'>
-        <h2>${strDrink}</h2>
-        <!-- <p>id: ${idDrink}</p> -->
-        <a href='../local-storage.html' class='learn-more-btn'>Learn more</a>
-        <button class='save-to-strg-btn'>Add to ❤</button>
+<li class="coctails__item">
+      <img src="${strDrinkThumb}" alt="${strDrink}" width="280" height="280" />
+      <h2 class="cocktails__item-title">${strDrink}</h2>
+      <div class="coctails__btns">
+        <button class="btn__read-more" type="button">Learn more</button>
+        <button class="btn__like" type="button">
+          Add to<svg class="btn__like-icon">
+            <use href="./images/icons.svg#icon-heart"></use>
+          </svg>
+        </button>
+      </div>
     </li>
 `;
 }
+
+// <li class='random-item'>
+//         <img src='${strDrinkThumb}' alt='name: ${strDrink}' width='100px'>
+//         <h2>${strDrink}</h2>
+//         <!-- <p>id: ${idDrink}</p> -->
+//         <a href='../local-storage.html' class='learn-more-btn'>Learn more</a>
+//         <button class='save-to-strg-btn'>Add to ❤</button>
+//     </li>
