@@ -1,0 +1,92 @@
+.img-coctal-modile{
+    width: 280px;
+    height: 280px;
+    border-radius: 4px;
+    @media screen and (min-width:715px){
+    display: none;
+}
+}
+
+.img-coctal-desctop{
+    display: none;
+    @media screen and (min-width:715px) {
+        border: 2px solid black;
+        display: block;
+        width: 280px;
+        height: 280px;
+        border-radius: 4px;
+    }
+}
+
+.coctal-ingr{
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.6;
+    color: $black;
+    @media screen and (min-width:715px) {
+        margin-top: 28px;
+    }
+}
+
+.koktel-instr{
+    margin-bottom: 0;
+    padding-bottom: 0;
+    @media screen and (min-width:715px) {
+        border: 0;
+    }
+}
+
+.after-coctal-ingr{
+    @media screen and (min-width:715px) {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+}
+
+.coctal-list{
+    @media screen and (min-width:715px) {
+       margin-top: 0;
+    }
+}
+
+.coctal-instr-text{
+    @media screen and (min-width:715px){
+        margin-top: 24px;
+    }
+}
+
+
+.hidden-name{
+    display: block;
+    @media screen and (min-width:715px) {
+        display: none;
+    }
+}
+
+.decoration-coctal{
+     @media screen and (min-width:715px) {
+        display: none;
+    }
+}
+
+.decoration-koktels{
+    display: none;
+    @media screen and (min-width:715px) {
+        display: block;
+        flex-direction: column;
+        margin-left: 32px;
+    }
+}
+
+.first-part-decor{
+    @media screen and (min-width:715px) {
+         display: flex;
+    }
+}
+
+.second-part-decor{
+    @media screen and (min-width:715px) {
+        display: flex;
+   }
+}
