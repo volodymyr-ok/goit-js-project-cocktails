@@ -1,5 +1,4 @@
 import debounce from 'lodash.debounce';
-
 const cocktailList = document.querySelector('.cocktails__list');
 const srchInput = document.querySelector('[name="cocktail-search"]');
 let cocktailsPerPage = 3;
@@ -7,9 +6,7 @@ let cocktailsPerPage = 3;
 getCocktails();
 
 window.addEventListener('resize', debounce(resizeListener, 500));
-
 function resizeListener() {
-  console.log('resizing viewport in random-cocktails js');
   if (srchInput.value === '') {
     getCocktails();
   }
