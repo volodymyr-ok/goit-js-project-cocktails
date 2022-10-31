@@ -2,51 +2,22 @@ import debounce from 'lodash.debounce';
 const cocktailList = document.querySelector('.cocktails__list');
 const srchInput = document.querySelector('[name="cocktail-search"]');
 const abcSelect = document.querySelector('#abc-cocktails');
+const pageNums = document.querySelectorAll('.pages__link');
 let cocktailsPerPage;
-
+const randomCocktailURL =
+  'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+const searchByFilterURL =
+  'https://www.thecocktaildb.com/api/json/v1/1/search.php?';
 const queryParams = {
   searchMethod: '',
   fetchQuery: '',
 };
 
-srchInput.addEventListener('change', event => {
-  queryParams.searchMethod = 's';
-  queryParams.fetchQuery = event.target.value;
-
-  actionOnIput(queryParams);
-});
-
-abcSelect.addEventListener('change', event => {
-  queryParams.searchMethod = 'f';
-  queryParams.fetchQuery = event.target.value;
-
-  actionOnIput(queryParams);
-});
-
+getRandomCocktails();
 window.addEventListener('resize', debounce(resizeListener, 500));
 
-function resizeListener() {
-  if (srchInput.value !== '' || abcSelect.value !== '') {
-    console.log('resizing viewport in pagination js');
-    actionOnIput(queryParams);
-  }
-}
-
-async function actionOnIput(queryParams) {
+async function getRandomCocktails() {
   try {
-    const { searchMethod, fetchQuery } = queryParams;
-    const json = await fetchBySrch(searchMethod, fetchQuery);
-    const cocktailsArray = json.drinks;
-
-    cocktailList.innerHTML = '';
-
-    if (cocktailsArray === null) {
-      cocktailList.innerHTML = `<h2>НІЦ НЕМА</h2>`;
-      return;
-    }
-
-    const pageNums = document.querySelectorAll('.pages__link');
-
     if (innerWidth < 768) {
       cocktailsPerPage = 3;
     } else if (innerWidth >= 768 && innerWidth < 1280) {
@@ -55,7 +26,72 @@ async function actionOnIput(queryParams) {
       cocktailsPerPage = 9;
     }
 
+    const randomCocktailsArray = [];
+
+    for (let i = 0; i < cocktailsPerPage; i++) {
+      const response = await fetchRandomCocktail();
+      randomCocktailsArray.push(...response.drinks);
+    }
+
+    cocktailList.innerHTML = randomCocktailsArray.map(createMarkup).join('');
+    // cocktailList.innerHTML = randomCocktailsArray.map(updateMarkup).join('');
+  } catch (error) {
+    throw new Error('Помилка у getRandomCocktails', error.message);
+  }
+}
+
+async function fetchRandomCocktail() {
+  try {
+    const randomCocktail = await fetch(randomCocktailURL);
+    return randomCocktail.json();
+  } catch (error) {
+    throw new Error('Помилка у fetchRandomCocktail', error.message);
+  }
+}
+
+function resizeListener() {
+  if (srchInput.value === '' && abcSelect.value === '') {
+    getRandomCocktails();
+  } else if (srchInput.value !== '' || abcSelect.value !== '') {
+    console.log('resizing viewport in pagination js');
+    actionOnSearch(queryParams);
+  }
+}
+
+srchInput.addEventListener('change', event => {
+  queryParams.searchMethod = 's';
+  queryParams.fetchQuery = event.target.value;
+
+  actionOnSearch(queryParams);
+});
+
+abcSelect.addEventListener('change', event => {
+  queryParams.searchMethod = 'f';
+  queryParams.fetchQuery = event.target.value;
+
+  actionOnSearch(queryParams);
+});
+
+async function actionOnSearch(queryParams) {
+  try {
+    const { searchMethod, fetchQuery } = queryParams;
+    const json = await fetchBySrch(searchMethod, fetchQuery);
+    cocktailList.innerHTML = '';
+    const cocktailsArray = json.drinks;
     let shownCocktails;
+
+    if (cocktailsArray === null) {
+      cocktailList.innerHTML = `<h2>НІЦ НЕМА</h2>`;
+      return;
+    }
+
+    if (innerWidth < 768) {
+      cocktailsPerPage = 3;
+    } else if (innerWidth >= 768 && innerWidth < 1280) {
+      cocktailsPerPage = 6;
+    } else if (innerWidth >= 1280) {
+      cocktailsPerPage = 9;
+    }
 
     shownCocktails = cocktailsArray.slice(0, cocktailsPerPage);
     cocktailList.insertAdjacentHTML(
@@ -71,7 +107,6 @@ async function actionOnIput(queryParams) {
       pageNum.addEventListener('click', addTemplateToMarkup);
 
       function addTemplateToMarkup() {
-        console.log('addTemplateToMarkup');
         shownCocktails = cocktailsArray.slice(pageStart, pageEnd);
 
         return (cocktailList.innerHTML = shownCocktails
@@ -80,16 +115,15 @@ async function actionOnIput(queryParams) {
       }
     }
   } catch (error) {
-    throw new Error('Помилка в actionOnIput ===> ' + error.message);
+    throw new Error('Помилка в actionOnSearch ===> ' + error.message);
   }
 }
 
 async function fetchBySrch(filter, entrie) {
   try {
-    console.log('перед фетчом');
-    return await fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?${filter}=${entrie}`
-    ).then(response => response.json());
+    return await fetch(`${searchByFilterURL}${filter}=${entrie}`).then(
+      response => response.json()
+    );
   } catch (error) {
     throw new Error('Помилка при ФЕТЧІ ===> ' + error.message);
   }
