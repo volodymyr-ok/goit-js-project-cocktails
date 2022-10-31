@@ -1,43 +1,37 @@
-// const btnLike = document.querySelectorAll('.btn-like')
-// const btnReadMore = document.querySelectorAll('.btn-read-more')
-// const coctails = document.querySelector('.cocktails')
-// console.log(coctails)
-// console.log(btnLike)
 
-// coctails.addEventListener('click', userClickEl)
+let storage = []
 
-// function userClickEl (event){
-//     console.log(event)
-//     console.log(event.target.textContent)
-//     console.log(event.path)
-//     if(event.target === event.currentTarget){
-//         console.log('abc')
-//         return
-//     }
-//     if(event.target === btnLike){
-//         console.log('uhaaa')
-//     }
-//     if(event.target === btnReadMore){
-//         console.log('paramparampam')
-//     }
-//     if(event.path[0]=== btnLike){
-//         console.log('uhaaaa')
-//     }
+setTimeout(() => {
 
-// }
+    reload()
 
-// function wego(event){
-//     if(event.target === event.currentTarget){
-//         console.log('abc')
-//         return
-//     }
-// console.log(event.target.style.backgroundColor)
-// text.textContent = event.target.style.backgroundColor
-// }
+    const btnLike = document.querySelectorAll('.btn__like')
+console.log(btnLike)
+btnLike.forEach(el=>el.addEventListener('click', userChoise))
+function userChoise(event){
+    if(event.target.id.length===0){
+        return
+    }
+    if(!storage.includes(event.target.id)){
+        storage.push(event.target.id) 
+        event.path[0].lastElementChild.classList.add("active-like-btn")
+    }else{
+        storage.splice(storage.indexOf(event.target.id), 1)
+        event.path[0].lastElementChild.classList.remove("active-like-btn")
+    }
+    localStorage.setItem('drinksId', storage)
+    console.log(storage)
+}
+  }, 5000)
+  
 
-// btnLike.addEventListener('click', userClick)
-// function userClick (event){
-//     console.log(event.target)
+  function reload () {
+   let user = localStorage.getItem('drinksId')
+    if (user){
+    console.log(user.split(','))
+    let ara = user.split(',')
+    ara.forEach(el=>storage.push(el))
 
-// }
-// fetch:('https://www.thecocktaildb.com/')
+    }
+
+}
