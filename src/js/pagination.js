@@ -10,8 +10,10 @@ srchInput.addEventListener('change', actionOnIput);
 window.addEventListener('resize', debounce(resizeListener, 500));
 
 function resizeListener() {
-  console.log('resizing viewport');
-  actionOnIput();
+  if (srchInput.value !== '') {
+    console.log('resizing viewport in pagination js');
+    actionOnIput();
+  }
 }
 
 async function actionOnIput() {
@@ -28,11 +30,11 @@ async function actionOnIput() {
 
     const pageNums = document.querySelectorAll('.pages__link');
 
-    if (innerWidth <= 320) {
+    if (innerWidth < 768) {
       cocktailsPerPage = 3;
-    } else if (innerWidth >= 768 && innerWidth < 1200) {
+    } else if (innerWidth >= 768 && innerWidth < 1280) {
       cocktailsPerPage = 6;
-    } else if (innerWidth >= 1200) {
+    } else if (innerWidth >= 1280) {
       cocktailsPerPage = 9;
     }
 

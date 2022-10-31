@@ -4,33 +4,29 @@ const cocktailList = document.querySelector('.cocktails__list');
 const srchInput = document.querySelector('[name="cocktail-search"]');
 let cocktailsPerPage = 3;
 
-window.addEventListener('resize', debounce(resizeListener, 500));
-function resizeListener() {
-  console.log('resizing viewport');
+getCocktails();
 
-  if (innerWidth < 768 && srchInput === '') {
-    getCocktails();
-  } else if (innerWidth >= 768 && srchInput === '') {
-    getCocktails();
-  } else if (innerWidth >= 1200 && srchInput === '') {
+window.addEventListener('resize', debounce(resizeListener, 500));
+
+function resizeListener() {
+  console.log('resizing viewport in random-cocktails js');
+  if (srchInput.value === '') {
     getCocktails();
   }
 }
 
-getCocktails();
-
 async function getCocktails() {
-  // console.log('* Start random with innerWidth *', innerWidth);
+  console.log('* Start random with innerWidth *', innerWidth);
   try {
     if (innerWidth < 768) {
       cocktailsPerPage = 3;
-    } else if (innerWidth >= 768 && innerWidth < 1200) {
+    } else if (innerWidth >= 768 && innerWidth < 1280) {
       cocktailsPerPage = 6;
-    } else if (innerWidth >= 1200) {
+    } else if (innerWidth >= 1280) {
       cocktailsPerPage = 9;
     }
 
-    randomCocktailsArray = [];
+    const randomCocktailsArray = [];
 
     for (let i = 0; i < cocktailsPerPage; i++) {
       const response = await fetchRandomCocktail();
