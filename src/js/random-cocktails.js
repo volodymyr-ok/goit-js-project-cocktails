@@ -1,18 +1,21 @@
 import debounce from 'lodash.debounce';
+
 const cocktailList = document.querySelector('.cocktails__list');
 const srchInput = document.querySelector('[name="cocktail-search"]');
+const abcSelect = document.querySelector('#abc-cocktails');
+
 let cocktailsPerPage = 3;
 
-getCocktails();
+getRandomCocktails();
 
 window.addEventListener('resize', debounce(resizeListener, 500));
 function resizeListener() {
-  if (srchInput.value === '') {
-    getCocktails();
+  if (srchInput.value === '' && abcSelect.value === '') {
+    getRandomCocktails();
   }
 }
 
-async function getCocktails() {
+async function getRandomCocktails() {
   console.log('* Start random with innerWidth *', innerWidth);
   try {
     if (innerWidth < 768) {
@@ -48,7 +51,7 @@ const updateMarkup = ({ strDrink, strDrinkThumb, idDrink }) => `
     <img src="${strDrinkThumb}" alt="${strDrink}" width="280" height="280" />
     <h2 class="cocktails__item-title">${strDrink}</h2>
     <div class="coctails__btns">
-      <button class="btn__read-more" type="button">
+      <button class="btn__read-more" type="button" id="${idDrink}">
         Learn more
       </button>
       <button id='${idDrink}' class="btn__like" type="button">
