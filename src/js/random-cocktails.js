@@ -1,30 +1,59 @@
-const cocktailList = document.querySelector('.cocktails__list');
-// const getBtn = document.querySelector('.get-random');
+import debounce from 'lodash.debounce';
 
-// console.log(innerWidth);
+const cocktailList = document.querySelector('.cocktails__list');
+let cocktailsPerPage = 3;
+
+const srchInput = document.querySelector('[name="cocktail-search"]');
+
+window.addEventListener('resize', debounce(resizeListener, 500));
+
+function resizeListener() {
+  console.log('resizing viewport');
+
+  // if (srchInput !== '') {
+  //   return;
+  // }
+
+  // getCocktails();
+
+  if (innerWidth < 768 && srchInput === '') {
+    getCocktails();
+  } else if (innerWidth >= 768 && srchInput === '') {
+    getCocktails();
+  } else if (innerWidth >= 1200 && srchInput === '') {
+    getCocktails();
+  }
+}
 
 getCocktails();
-// getBtn.addEventListener('click', getCocktail);
 
 async function getCocktails() {
+  // console.log('* Start random with innerWidth *', innerWidth);
   try {
-    for (let i = 0; i < 9; i++) {
-      const result = await fetchRandomCocktail();
-        // console.log(result);
-        // console.log(result.drinks);
-      cocktailList.insertAdjacentHTML(
-        'beforeend',
-        result.drinks.map(updateMarkup).join('')
-      );
-      const learnMoreBtn = document.querySelector('.btn__read-more');
-      learnMoreBtn.addEventListener('click', (event, item) => {
-        // console.log(event.target);
-        // console.log(event.currentTarget);
-        // console.log(item);
-
-        localStorage.setItem('favoriteCocktails', item);
-      });
+    if (innerWidth < 768) {
+      cocktailsPerPage = 3;
+    } else if (innerWidth >= 768 && innerWidth < 1200) {
+      cocktailsPerPage = 6;
+    } else if (innerWidth >= 1200) {
+      cocktailsPerPage = 9;
     }
+
+    randomCocktailsArray = [];
+
+    for (let i = 0; i < cocktailsPerPage; i++) {
+      const result = await fetchRandomCocktail();
+      randomCocktailsArray.push(...result.drinks);
+      // const learnMoreBtn = document.querySelector('.btn__read-more');
+      // learnMoreBtn.addEventListener('click', (event, item) => {
+      //   console.log('on click');
+      //   console.log(event.target);
+      //   console.log(event.currentTarget);
+      //   console.log(item);
+      //   // localStorage.setItem('favoriteCocktails', item);
+      // });
+    }
+
+    cocktailList.innerHTML = randomCocktailsArray.map(updateMarkup).join('');
   } catch (error) {
     console.log(error);
   }
