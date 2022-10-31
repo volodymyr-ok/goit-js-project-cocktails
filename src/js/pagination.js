@@ -1,24 +1,40 @@
 import debounce from 'lodash.debounce';
-
 const cocktailList = document.querySelector('.cocktails__list');
+const abcSelect = document.querySelector('#abc-cocktails');
 const srchInput = document.querySelector('[name="cocktail-search"]');
-
 let cocktailsPerPage;
 
-srchInput.addEventListener('change', actionOnIput);
+const queryParams = {
+  searchMethod: '',
+  fetchQuery: '',
+};
+
+srchInput.addEventListener('change', event => {
+  queryParams.searchMethod = 's';
+  queryParams.fetchQuery = event.target.value;
+
+  actionOnIput(queryParams);
+});
+abcSelect.addEventListener('change', event => {
+  queryParams.searchMethod = 'f';
+  queryParams.fetchQuery = event.target.value;
+
+  actionOnIput(queryParams);
+});
 
 window.addEventListener('resize', debounce(resizeListener, 500));
 
 function resizeListener() {
-  if (srchInput.value !== '') {
+  if (srchInput.value !== '' || abcSelect.value !== '') {
     console.log('resizing viewport in pagination js');
-    actionOnIput();
+    actionOnIput(queryParams);
   }
 }
 
-async function actionOnIput() {
+async function actionOnIput(queryParams) {
   try {
-    const json = await fetchBySrch(srchInput.value);
+    const { searchMethod, fetchQuery } = queryParams;
+    const json = await fetchBySrch(searchMethod, fetchQuery);
     const cocktailsArray = json.drinks;
 
     cocktailList.innerHTML = '';
@@ -67,11 +83,11 @@ async function actionOnIput() {
   }
 }
 
-async function fetchBySrch(entrie) {
+async function fetchBySrch(filter, entrie) {
   try {
     console.log('перед фетчом');
     return await fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${entrie}`
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?${filter}=${entrie}`
     ).then(response => response.json());
   } catch (error) {
     throw new Error('Помилка при ФЕТЧІ ===> ' + error.message);
