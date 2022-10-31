@@ -30,7 +30,7 @@ async function getCocktails() {
       cocktailsPerPage = 9;
     }
 
-    randomCocktailsArray = [];
+    const randomCocktailsArray = [];
 
     for (let i = 0; i < cocktailsPerPage; i++) {
       const response = await fetchRandomCocktail();
