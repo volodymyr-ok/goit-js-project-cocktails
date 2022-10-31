@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 const cocktailList = document.querySelector('.cocktails__list');
-const abcSelect = document.querySelector('#abc-cocktails');
 const srchInput = document.querySelector('[name="cocktail-search"]');
+const abcSelect = document.querySelector('#abc-cocktails');
 let cocktailsPerPage;
 
 const queryParams = {
@@ -15,6 +15,7 @@ srchInput.addEventListener('change', event => {
 
   actionOnIput(queryParams);
 });
+
 abcSelect.addEventListener('change', event => {
   queryParams.searchMethod = 'f';
   queryParams.fetchQuery = event.target.value;
@@ -100,7 +101,7 @@ function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
   <img src="${strDrinkThumb}" alt="${strDrink}" width="280" height="280" />
   <h2 class="cocktails__item-title">${strDrink}</h2>
   <div class="coctails__btns">
-    <button class="btn__read-more" type="button">
+    <button class="btn__read-more" type="button" id="${idDrink}">
       Learn more
     </button>
     <button id='${idDrink}' class="btn__like" type="button">
