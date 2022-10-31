@@ -1,57 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Favorite cocktails</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;900&display=swap"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="./sass/index.scss" />
-</head>
+  </head>
 
-<body>
+  <body>
     <header class="header container">
-        <a href="./index.html" class="logo"><img src="./images/logo.png" alt="logo"></a>
-        <button type="button" class="menu-open">
-            <svg class="open-icon" width="32" height="16">
-                <use href="./images/icons.svg#menu"></use>
-            </svg></button>
+      <a href="#" class="logo"><img src="./images/logo.png" alt="logo" /></a>
+      <button type="button" class="menu-open">
+        <svg class="open-icon" width="32" height="16">
+          <use href="./images/icons.svg#menu"></use>
+        </svg>
+      </button>
 
-        <div class="menu-burger is-hidden">
-            <button type="button" class="menu-close">
-                <svg class="close-icon" width="32" height="32">
-                    <use href="./images/icons.svg#close"></use>
-                </svg>
-            </button>
-            <label for="#">
-                <input type="text" name="searchQuery" autocomplete="off" placeholder="Search" />
-                <button type="submit" class="search-btn">
-                    <svg width="24" height="24" class="search-icon">
-                        <use href="./images/icons.svg#search"></use>
-                    </svg>
-                </button>
-            </label>
-            <a href="./index.html" class="home-link">Home</a>
-            <div class="favorites">
-                <a href="./cocktails.html" class="favorite-menu">Favorite</a>
-                <svg width="24" height="20" class="arrow-icon">
-                    <use href="./images/icons.svg#arrow"></use>
-                </svg>
-            </div>
-            <div class="favorite-pages is-hidden">
-                <a href="./cocktails.html">Cocktails</a>
-                <a href="./ingridients.html">Ingridients</a>
-            </div>
-
-
+      <div class="menu-burger is-hidden">
+        <button type="button" class="menu-close">
+          <svg class="close-icon" width="32" height="32">
+            <use href="./images/icons.svg#close"></use>
+          </svg>
+        </button>
+        <label for="#">
+          <input
+            type="text"
+            name="searchQuery"
+            autocomplete="off"
+            placeholder="Search"
+          />
+          <button type="submit" class="search-btn">
+            <svg width="24" height="24" class="search-icon">
+              <use href="./images/icons.svg#search"></use>
+            </svg>
+          </button>
+        </label>
+        <a href="./index.html" class="home-link">Home</a>
+        <div class="favorites">
+          <p class="favorite-menu">Favorite</p>
+          <svg width="24" height="20" class="arrow-icon">
+            <use href="./images/icons.svg#arrow"></use>
+          </svg>
         </div>
+        <div class="favorite-pages is-hidden">
+          <a href="./cocktails.html">Cocktails</a>
+          <a href="./ingridients.html">Ingridients</a>
+        </div>
+      </div>
     </header>
 
+    <section class="favorites-list container">
+      <h1 class="favorites-title">Favorite cocktails</h1>
+      <p class="empty-text">You haven't added any favorite cocktails yet</p>
+      <ul class="favorite-cocktails">
+        <li class="cocktail-card">
+          <h2 class="cocktail-name">name alcohol</h2>
+          <p class="cocktail-type">type alcohol</p>
+          <button type="button">Learn more</button>
+          <button type="button">Remove 🧡</button>
+        </li>
+        <li class="cocktail-card">
+          <h2 class="cocktail-name">name alcohol</h2>
+          <p class="cocktail-type">type alcohol</p>
+          <button type="button">Learn more</button>
+          <button type="button">Remove 🧡</button>
+        </li>
+        <li class="cocktail-card">
+          <h2 class="cocktail-name">name alcohol</h2>
+          <p class="cocktail-type">type alcohol</p>
+          <button type="button">Learn more</button>
+          <button type="button">Remove 🧡</button>
+        </li>
+      </ul>
+    </section>
     <script src="./index.js" type="module"></script>
-</body>
-
+  </body>
 </html>

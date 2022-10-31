@@ -1,0 +1,216 @@
+.cocktails{
+    padding-bottom: 60px;
+    &__title{
+      text-align: center;
+      text-shadow: 0 4px 4px #00000040;
+      font-family: Poppins;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.91;
+    }
+    &__list{
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      padding-top: 60px;
+      display: flex;
+      @include tablet{
+          flex-flow: wrap;
+      }
+    }
+}
+
+  
+
+  
+  .coctails__item {
+    width: 280px;
+    min-height: 449px;
+    text-align: center;
+    border: 1px solid #fd5103;
+    border-radius: 4px;
+    padding-bottom: 24px;
+    overflow: hidden;
+    @include tablet{
+        width: 335px;
+        min-height: 541px;
+        gap: 32px;
+        padding-bottom: 20px;
+    }
+    @include desktop{
+        width: 395xp;
+        min-height: 556px;
+    }
+    & img{
+      @include tablet{
+        width: 335px;
+        height: 395px;
+      }
+    }
+  }
+
+  
+  // @media screen and (min-width: 768px) {
+  //   .coctails__item img {
+  //     width: 335px;
+  //     height: 395px;
+  //   }
+  // }
+  
+  .cocktails__item-title {
+    text-align: center;
+    margin-top: 48px;
+    font-family: Roboto;
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1.62;
+    @include tablet{
+        margin-top: 20px;
+    }
+  }
+  
+  .coctails__btns {
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    display: flex;
+    @include tablet{
+        margin-top: 25px;
+    }
+  }
+  
+  
+  .btn__read-more {
+    text-align: center;
+    letter-spacing: .02em;
+    color: #fff;
+    min-width: 108px;
+    background-color: #fe7031;
+    border: 1px solid #fd5103;
+    border-radius: 4px;
+    padding: 6px 15px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.71;
+    @include tablet{
+        padding: 0 27px;
+        font-size: 20px;
+    }
+  }
+  
+  
+  .btn__like {
+    letter-spacing: .02em;
+    color: #fd5103;
+    min-width: 108px;
+    background-color: #fff;
+    border: 1px solid #fd5103;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    padding: 6px 17px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.71;
+    display: flex;
+    @include tablet{
+        font-size: 20px;
+    }
+  }
+  
+
+  
+  .btn__like-icon{
+    width: 21px;
+    height: 19px;
+    fill: #fff;
+  }
+
+  .navigation{
+    display: flex;
+    justify-content: center;
+    &__item{
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      display: flex;
+    }
+  }
+  .navigation__btn-next:hover, 
+  .navigation__btn-next:focus, 
+  .navigation__btn-prev:hover, 
+  .navigation__btn-prev:focus {
+    fill: #fd5103;
+  }
+ 
+  
+  .navigation__btn-prev,
+  .navigation__btn-next {
+    background-color: #0000;
+    border: none;
+  }
+  .navigation__btn-next-icon,
+  .navigation__btn-prev-icon{
+    width: 8px;
+    height: 13px;
+  }
+  
+  .pages {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    display: flex;
+    &__item{
+      width: 32px;
+      height: 32px;
+      color: #1e1e1e;
+      border: 1px solid #fd5103;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      font-family: Montserrat;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.25;
+      display: flex;
+      &-load{
+        color: #fe7031;
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.25;
+      }
+    }
+  }
+  
+ 
+  
+  .active-nav {
+    color: #fff;
+    background-color: #fe7031;
+  }
+  
+  .active-like-btn {
+    fill: #fd5103;
+  }
+  
+  .btn__like:hover,
+  .btn__like:focus,
+  .btn__read-more:hover,
+  .btn__read-more:focus{
+    box-shadow: 0 4px 4px #00000040;
+  }
+  
+
+  
+  .disabled, 
+  .disabled:hover, 
+  .disabled:focus {
+    fill: #5f6775;
+  }
