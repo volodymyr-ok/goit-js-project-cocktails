@@ -43,7 +43,7 @@ function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
       <h2 class="cocktails__item-title">${strDrink}</h2>
       <div class="coctails__btns">
         <button class="btn__read-more" type="button">Learn more</button>
-        <button class="btn__like" type="button">
+        <button id='${idDrink}' class="btn__like" type="button">
           Add to<svg class="btn__like-icon">
             <use href="./images/icons.svg#icon-heart"></use>
           </svg>

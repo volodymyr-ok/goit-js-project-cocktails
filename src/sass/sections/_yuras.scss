@@ -24,7 +24,7 @@
 
   
   .coctails__item {
-    width: 280px;
+    min-width: 280px;
     min-height: 449px;
     text-align: center;
     border: 1px solid #fd5103;
@@ -32,21 +32,30 @@
     padding-bottom: 24px;
     overflow: hidden;
     @include tablet{
-        width: 335px;
+        min-width: 335px;
         min-height: 541px;
         gap: 32px;
         padding-bottom: 20px;
     }
-    @include desktop{
-        width: 395xp;
-        min-height: 556px;
-    }
     & img{
       @include tablet{
-        width: 335px;
+        min-width: 335px;
         height: 395px;
       }
     }
+    @include desktop{
+        min-width: 395xp;
+        max-width: 397px;
+        min-height: 556px;
+    }
+    & img{
+      @include desktop{
+        width: 395px;
+        max-width: 397px;
+        height: 395px;
+      }
+    }
+  
   }
 
   
@@ -64,6 +73,7 @@
     font-size: 26px;
     font-weight: 900;
     line-height: 1.62;
+    flex-grow: 1;
     @include tablet{
         margin-top: 20px;
     }
@@ -74,9 +84,13 @@
     gap: 12px;
     margin-top: 16px;
     display: flex;
+    margin-top: auto;
     @include tablet{
         margin-top: 25px;
     }
+    @include desktop{
+      gap: 16;
+  }
   }
   
   
@@ -97,6 +111,9 @@
         padding: 0 27px;
         font-size: 20px;
     }
+    @include desktop{
+      padding: 0 37px;
+  }
   }
   
   
@@ -119,6 +136,9 @@
     @include tablet{
         font-size: 20px;
     }
+    @include desktop{
+      padding: 6px 27px;
+  }
   }
   
 
