@@ -1,9 +1,25 @@
+// import debounce from 'lodash.debounce';
+
 const cocktailList = document.querySelector('.cocktails__list');
 const srchInput = document.querySelector('[name="cocktail-search"]');
 
 let cocktailsPerPage;
 
 srchInput.addEventListener('change', actionOnIput);
+
+// window.addEventListener('resize', debounce(resizeListener, 500));
+
+// function resizeListener() {
+//   console.log('resizing viewport');
+
+//   if (innerWidth < 768) {
+//     actionOnIput();
+//   } else if (innerWidth >= 768) {
+//     actionOnIput();
+//   } else if (innerWidth >= 1200) {
+//     actionOnIput();
+//   }
+// }
 
 async function actionOnIput() {
   try {
@@ -16,8 +32,6 @@ async function actionOnIput() {
       cocktailList.innerHTML = `<h2>НІЦ НЕМА</h2>`;
       return;
     }
-
-    // ===========================================
 
     const pageNums = document.querySelectorAll('.pages__link');
 
@@ -44,7 +58,6 @@ async function actionOnIput() {
 
       pageNum.addEventListener('click', event => {
         shownCocktails = cocktailsArray.slice(pageStart, pageEnd);
-        console.log(shownCocktails);
 
         return (cocktailList.innerHTML = shownCocktails
           .map(createMarkup)

@@ -1,19 +1,28 @@
+import debounce from 'lodash.debounce';
+
 const cocktailList = document.querySelector('.cocktails__list');
 let cocktailsPerPage = 3;
 
-// window.addEventListener('resize', resizeListener);
+window.addEventListener('resize', debounce(resizeListener, 500));
 
-// function resizeListener() {
-//   console.log('resizing viewport');
-//   cocktailsPerPage = window.innerWidth;
-// }
+function resizeListener() {
+  console.log('resizing viewport');
+
+  if (innerWidth < 768) {
+    getCocktails();
+  } else if (innerWidth >= 768) {
+    getCocktails();
+  } else if (innerWidth >= 1200) {
+    getCocktails();
+  }
+}
 
 getCocktails();
 
 async function getCocktails() {
   console.log('* Start random with innerWidth *', innerWidth);
   try {
-    if (innerWidth <= 320) {
+    if (innerWidth < 768) {
       cocktailsPerPage = 3;
     } else if (innerWidth >= 768 && innerWidth < 1200) {
       cocktailsPerPage = 6;
@@ -21,22 +30,22 @@ async function getCocktails() {
       cocktailsPerPage = 9;
     }
 
+    randomCocktailsArray = [];
+
     for (let i = 0; i < cocktailsPerPage; i++) {
       const result = await fetchRandomCocktail();
-      cocktailList.insertAdjacentHTML(
-        'beforeend',
-        result.drinks.map(updateMarkup).join('')
-      );
-
-      const learnMoreBtn = document.querySelector('.btn__read-more');
-      learnMoreBtn.addEventListener('click', (event, item) => {
-        console.log('on click');
-        console.log(event.target);
-        console.log(event.currentTarget);
-        console.log(item);
-        // localStorage.setItem('favoriteCocktails', item);
-      });
+      randomCocktailsArray.push(...result.drinks);
+      // const learnMoreBtn = document.querySelector('.btn__read-more');
+      // learnMoreBtn.addEventListener('click', (event, item) => {
+      //   console.log('on click');
+      //   console.log(event.target);
+      //   console.log(event.currentTarget);
+      //   console.log(item);
+      //   // localStorage.setItem('favoriteCocktails', item);
+      // });
     }
+
+    cocktailList.innerHTML = randomCocktailsArray.map(updateMarkup).join('');
   } catch (error) {
     console.log(error);
   }
