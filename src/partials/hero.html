@@ -1,6 +1,11 @@
 <section class="hero container">
   <h1 class="page-title">A party without cocktails is not like a party</h1>
-  <img src="./images/hero.cocktail.png" alt="hero cocktail" width="280" height="245" class="hero-image" />
+  <picture>
+    <source srcset="./images/hero.desk.png" media="(min-width:1200px)">
+    <source srcset="./images/hero.tablet.png" media="(min-width:768px)">
+    <source srcset="./images/hero.mob.png" media="(min-width:320px)">
+    <img src="./images/hero.mob.png" alt="hero cocktail" width="280" height="245" class="hero-image" />
+  </picture>
   <p class="search-descr">Search your favorite cocktail by ABC</p>
 
   <ul class="letters-list">

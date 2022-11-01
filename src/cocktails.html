@@ -14,7 +14,14 @@
 
 <body>
   <header class="header container">
-    <a href="#" class="logo"><img src="./images/logo.png" alt="logo" /></a>
+    <a href="./index.html" class="logo">
+      <picture>
+        <source srcset="./images/logo.desk.png" media="(min-width:1200px)">
+        <source srcset="./images/logo.tablet.png" media="(min-width:768px)">
+        <source srcset="./images/logo.png" media="(min-width:320px)">
+        <img src="./images/logo.png" alt="logo" width="124" height="34">
+      </picture>
+    </a>
     <label for="#" class="input-tablet">
       <input type="text" name="searchQuery" autocomplete="off" placeholder="Search" />
       <button type="submit" class="search-btn">
@@ -30,7 +37,7 @@
     </button>
 
     <div class="menu-burger is-hidden">
-      <a href="./index.html" class="logo-tablet"><img src="./images/logo.png" alt="logo"></a>
+      <a href="./index.html" class="logo-tablet"><img src="./images/logo.tablet.png" alt="logo"></a>
       <button type="button" class="menu-close">
         <svg class="close-icon" width="32" height="32">
           <use href="./images/icons.svg#close"></use>
@@ -67,19 +74,34 @@
     <p class="empty-text">You haven't added any <br>favorite cocktails yet</p>
     <ul class="favorite-cocktails">
       <li class="cocktail-card">
-        <img src="./images/hero.cocktail.png" alt="cocktail" width="280" height="280" class="cocktaile-image">
+        <picture>
+          <source srcset="./images/hero.desk.png" media="(min-width:1200px)">
+          <source srcset="./images/hero.tablet.png" media="(min-width:768px)">
+          <source srcset="./images/hero.mob.png" media="(min-width:320px)">
+          <img src="./images/hero.mob.png" alt="cocktail" width="280" height="280" class="cocktaile-image">
+        </picture>
         <h2 class="cocktail-name">name alcohol</h2>
         <button type="button">Learn more</button>
         <button type="button">Remove 🧡</button>
       </li>
       <li class="cocktail-card">
-        <img src="./images/hero.cocktail.png" alt="cocktail" width="280" height="280" class="cocktaile-image">
+        <picture>
+          <source srcset="./images/hero.desk.png" media="(min-width:1200px)">
+          <source srcset="./images/hero.tablet.png" media="(min-width:768px)">
+          <source srcset="./images/hero.mob.png" media="(min-width:320px)">
+          <img src="./images/hero.mob.png" alt="cocktail" width="280" height="280" class="cocktaile-image">
+        </picture>
         <h2 class="cocktail-name">name alcohol</h2>
         <button type="button">Learn more</button>
         <button type="button">Remove 🧡</button>
       </li>
       <li class="cocktail-card">
-        <img src="./images/hero.cocktail.png" alt="cocktail" width="280" height="280" class="cocktaile-image">
+        <picture>
+          <source srcset="./images/hero.desk.png" media="(min-width:1200px)">
+          <source srcset="./images/hero.tablet.png" media="(min-width:768px)">
+          <source srcset="./images/hero.mob.png" media="(min-width:320px)">
+          <img src="./images/hero.mob.png" alt="cocktail" width="280" height="280" class="cocktaile-image">
+        </picture>
         <h2 class="cocktail-name">name alcohol</h2>
         <button type="button">Learn more</button>
         <button type="button">Remove 🧡</button>

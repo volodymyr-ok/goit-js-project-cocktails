@@ -2,7 +2,9 @@ const openBtn = document.querySelector('.menu-open');
 const menu = document.querySelector('.menu-burger');
 const closeBtn = document.querySelector('.menu-close');
 const favoriteMenuOpen = document.querySelector('.favorites');
+const favoriteMenuDesk = document.querySelector('.favorite');
 const favoritePages = document.querySelector('.favorite-pages');
+const favoriteDesktop = document.querySelector('.favorite-pages-desk');
 const arrowIcon = document.querySelector('.arrow-icon');
 
 openBtn.addEventListener('click', () => {
@@ -21,5 +23,14 @@ favoriteMenuOpen.addEventListener('mouseout', () => {
   setTimeout(() => {
     favoritePages.classList.add('is-hidden');
     arrowIcon.style.transform = 'rotate(0)';
-  }, 2000);
+  }, 5000);
+});
+
+favoriteMenuDesk.addEventListener('mouseover', () => {
+  favoriteDesktop.classList.remove('is-hidden');
+});
+favoriteMenuDesk.addEventListener('mouseout', () => {
+  setTimeout(() => {
+    favoriteDesktop.classList.add('is-hidden');
+  }, 5000);
 });

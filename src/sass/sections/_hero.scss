@@ -1,9 +1,14 @@
 /*===================================HERO=================================*/
 .hero {
+  position: relative;
   padding: 60px 20px 40px 20px;
 
   @include tablet {
     padding: 100px 32px 120px 32px;
+  }
+
+  @include desktop {
+    padding: 100px 16px 120px 16px;
   }
 }
 
@@ -20,18 +25,35 @@
     line-height: 1.6;
     width: 338px;
   }
+
+  @include desktop {
+    width: 688px;
+
+    font-size: 52px;
+    line-height: 1.5;
+  }
 }
 
 .hero-image {
   margin: 60px 0;
 
   @include tablet {
+    width: 336px;
+    height: 294px;
     position: absolute;
-    top: 77px;
+    top: 20px;
     right: 32px;
 
     width: 336px;
     height: 294px;
+  }
+
+  @include desktop {
+    top: 97px;
+    right: 16px;
+
+    width: 501px;
+    height: 439px;
   }
 }
 
@@ -47,6 +69,11 @@
   @include tablet {
     margin: 40px 0;
     text-align: left;
+  }
+
+  @include desktop {
+    font-size: 18px;
+    line-height: 1.5;
   }
 }
 
@@ -78,7 +105,7 @@ option {
   border-radius: 4px;
 }
 
-/*============================LETTERS SEARCH TABLET=================================*/
+/*============================LETTERS SEARCH TABLET AND DESKTOP=================================*/
 .letters-list {
   display: none;
   @include tablet {
@@ -93,6 +120,14 @@ option {
     line-height: 1.5;
 
     color: $gray;
+  }
+
+  @include desktop {
+    width: 500px;
+    gap: 23px;
+
+    font-size: 24px;
+    line-height: 1.5;
   }
 }
 
