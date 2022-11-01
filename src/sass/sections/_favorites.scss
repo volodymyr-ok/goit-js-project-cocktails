@@ -6,6 +6,13 @@
   line-height: 1.9;
 
   text-align: center;
+
+  @include tablet {
+    padding-top: 68px;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.1;
+  }
 }
 
 .empty-text {
@@ -13,35 +20,103 @@
   line-height: 3;
 
   text-align: center;
+
+  @include tablet {
+    font-size: 24px;
+    line-height: 2.5;
+  }
 }
 
+.favorite-ingridients,
 .favorite-cocktails {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  padding-bottom: 24px;
+
+  @include tablet {
+    gap: 32px;
+  }
 }
 
 .cocktail-card {
+  padding-bottom: 24px;
+  width: 282px;
+
+  border: 1px solid $grapefruit;
+  border-radius: 4px;
+  text-align: center;
+
+  @include tablet {
+    width: 335px;
+  }
+}
+
+.ingridients-card {
   padding: 20px;
   width: 280px;
 
   border: 1px solid $grapefruit;
   border-radius: 4px;
+
+  @include tablet {
+    width: 336px;
+  }
+}
+
+.cocktaile-image {
+  border-radius: 4px 4px 0 0;
+  @include tablet {
+    width: 333px;
+    height: 395px;
+  }
 }
 
 .cocktail-name {
+  margin-bottom: 16px;
+  margin-top: 48px;
+
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1.6;
+
+  @include tablet {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    font-size: 28px;
+    line-height: 1.1;
+  }
+}
+
+.ingridients-name {
   margin-bottom: 20px;
 
   font-weight: 900;
   font-size: 26px;
   line-height: 1.6;
+
+  @include tablet {
+    margin-bottom: 28px;
+    font-size: 28px;
+    line-height: 1.1;
+  }
 }
 
-.cocktail-type {
+.ingridients-type {
   margin-bottom: 20px;
 
   font-weight: 600;
   font-size: 14px;
   line-height: 1.5;
   text-transform: uppercase;
+
+  @include tablet {
+    margin-bottom: 28px;
+
+    font-size: 16px;
+    line-height: 1.5;
+
+    color: $gray;
+  }
 }
