@@ -1,8 +1,10 @@
 import debounce from 'lodash.debounce';
 const cocktailList = document.querySelector('.cocktails__list');
-const srchInput = document.querySelector('[name="cocktail-search"]');
-const abcSelect = document.querySelector('#abc-cocktails');
+const srchInput = document.querySelector('.input-tablet');
+const mobInput = document.querySelector('.input-mobile');
+const abcSelect = document.querySelector('#letters');
 const pageNums = document.querySelectorAll('.pages__link');
+const abcList = document.querySelector('.letters-list');
 let cocktailsPerPage;
 const randomCocktailURL =
   'https://www.thecocktaildb.com/api/json/v1/1/random.php';
@@ -34,9 +36,8 @@ async function getRandomCocktails() {
     }
 
     cocktailList.innerHTML = randomCocktailsArray.map(createMarkup).join('');
-    // cocktailList.innerHTML = randomCocktailsArray.map(updateMarkup).join('');
   } catch (error) {
-    throw new Error('Помилка у getRandomCocktails', error.message);
+    console.log('Помилка у getRandomCocktails', error);
   }
 }
 
@@ -45,29 +46,63 @@ async function fetchRandomCocktail() {
     const randomCocktail = await fetch(randomCocktailURL);
     return randomCocktail.json();
   } catch (error) {
-    throw new Error('Помилка у fetchRandomCocktail', error.message);
+    console.log(error);
   }
 }
 
 function resizeListener() {
-  if (srchInput.value === '' && abcSelect.value === '') {
+  if (queryParams.fetchQuery === '') {
     getRandomCocktails();
-  } else if (srchInput.value !== '' || abcSelect.value !== '') {
+  } else if (queryParams.fetchQuery !== '') {
     console.log('resizing viewport in pagination js');
     actionOnSearch(queryParams);
   }
 }
 
-srchInput.addEventListener('change', event => {
+function removeActiveLeter() {
+  const curLetter = document.querySelectorAll('.letter-item');
+
+  curLetter.forEach(letter => {
+    if (letter.classList.contains('current-letter')) {
+      letter.classList.remove('current-letter');
+    }
+  });
+}
+
+mobInput.addEventListener('submit', actionOnForm);
+
+function actionOnForm(event) {
+  event.preventDefault();
+  removeActiveLeter();
+
   queryParams.searchMethod = 's';
+  queryParams.fetchQuery = event.currentTarget.searchQuery.value;
+
+  actionOnSearch(queryParams);
+}
+
+srchInput.addEventListener('submit', actionOnForm);
+
+abcSelect.addEventListener('change', event => {
+  removeActiveLeter();
+
+  queryParams.searchMethod = 'f';
   queryParams.fetchQuery = event.target.value;
 
   actionOnSearch(queryParams);
 });
 
-abcSelect.addEventListener('change', event => {
+abcList.addEventListener('click', event => {
+  if (event.currentTarget === event.target) {
+    return;
+  }
+
+  removeActiveLeter();
+
+  event.target.classList.add('current-letter');
+
   queryParams.searchMethod = 'f';
-  queryParams.fetchQuery = event.target.value;
+  queryParams.fetchQuery = event.target.textContent;
 
   actionOnSearch(queryParams);
 });
@@ -115,7 +150,7 @@ async function actionOnSearch(queryParams) {
       }
     }
   } catch (error) {
-    throw new Error('Помилка в actionOnSearch ===> ' + error.message);
+    console.log('Помилка в actionOnSearch ===> ', error);
   }
 }
 
@@ -125,7 +160,7 @@ async function fetchBySrch(filter, entrie) {
       response => response.json()
     );
   } catch (error) {
-    throw new Error('Помилка при ФЕТЧІ ===> ' + error.message);
+    console.log('Помилка при ФЕТЧІ ===> ', error);
   }
 }
 
