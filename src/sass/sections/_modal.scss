@@ -1,16 +1,24 @@
 .modal{
     background-color: rgba($color: #000000, $alpha: 0.8);
     z-index: 1;
-     position:relative;
-    overflow: auto;
+    position:fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0%;
+    // overflow: auto;
 }
 
 .modal-content{
+    position: absolute;
     background-color: $white;
     // padding-left: 20px;
     padding: 40px 20px;;
     // margin-left: auto;
     // margin-right: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) ;
 
      @media screen and (min-width:715px){
         min-width: 715px;
@@ -129,4 +137,6 @@ height: 32px;
     background-color: transparent;
     position: absolute;
     border: 0;
+    top: 0;
+    right: 0;
 }
