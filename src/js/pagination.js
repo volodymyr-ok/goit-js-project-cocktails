@@ -6,7 +6,6 @@ const cocktailList = document.querySelector('.cocktails__list');
 const srchInput = document.querySelector('.input-tablet');
 const mobInput = document.querySelector('.input-mobile');
 const abcSelect = document.querySelector('#letters');
-const pageNums = document.querySelectorAll('.pages__link');
 const abcList = document.querySelector('.letters-list');
 let cocktailsPerPage;
 const randomCocktailURL =
@@ -18,52 +17,12 @@ const queryParams = {
   fetchQuery: '',
 };
 
-let windowHeight = window.innerHeight;
-
 getRandomCocktails();
 
 window.addEventListener('resize', debounce(resizeListener, 500));
 
 async function getRandomCocktails(event) {
   try {
-    // if (
-    //   windowHeight !== window.innerHeight ||
-    //   windowWidth !== window.innerWidth
-    // ) {
-    //   // console.log('windowHeight', windowHeight);
-    //   // console.log('innerHeight', window.innerHeight);
-    //   return;
-    // } else if {
-
-    // console.log(
-    //   `windowHeight === event?.target?.innerHeight >>>`,
-    //   event?.target?.innerWidth < 768 &&
-    //     windowHeight === event?.target?.innerHeight
-    // );
-
-    // if (
-    //   event?.target?.innerWidth < 768 &&
-    //   windowHeight === event?.target?.innerHeight
-    // ) {
-    //   console.log(
-    //     `windowHeight === event?.target?.innerHeight`,
-    //     windowHeight === event?.target?.innerHeight
-    //   );
-    //   return;
-    // }
-
-    // if (
-    //   event?.target?.innerWidth >= 768 &&
-    //   event?.target?.innerWidth < 1200 &&
-    //   windowHeight === event?.target?.innerHeight
-    // ) {
-    //   console.log(
-    //     `windowHeight === event?.target?.innerHeight`,
-    //     windowHeight === event?.target?.innerHeight
-    //   );
-    //   return;
-    // }
-
     if (innerWidth < 768) {
       if (cocktailsPerPage === 3) {
         return;
@@ -82,17 +41,14 @@ async function getRandomCocktails(event) {
     }
 
     const randomCocktailsArray = [];
-    console.log('cocktailsPerPage', cocktailsPerPage);
     for (let i = 0; i < cocktailsPerPage; i++) {
       const response = await fetchRandomCocktail();
       randomCocktailsArray.push(...response.drinks);
     }
-
     cocktailList.innerHTML = randomCocktailsArray.map(createMarkup).join('');
 
     showModalInfo();
     actionOnLikeBtn();
-    // }
   } catch (error) {
     console.log('Помилка у getRandomCocktails', error);
   }
@@ -100,8 +56,7 @@ async function getRandomCocktails(event) {
 
 async function fetchRandomCocktail() {
   try {
-    const randomCocktail = await fetch(randomCocktailURL);
-    return randomCocktail.json();
+    return await fetch(randomCocktailURL).then(response => response.json());
   } catch (error) {
     console.log(error);
   }
@@ -111,6 +66,17 @@ function resizeListener(event) {
   if (queryParams.fetchQuery === '') {
     getRandomCocktails(event);
   } else if (queryParams.fetchQuery !== '') {
+    if (innerWidth < 768 && cocktailsPerPage === 3) {
+      return;
+    } else if (
+      innerWidth >= 768 &&
+      innerWidth < 1280 &&
+      cocktailsPerPage === 6
+    ) {
+      return;
+    } else if (innerWidth >= 1280 && cocktailsPerPage === 9) {
+      return;
+    }
     console.log('resizing viewport in pagination js');
     actionOnSearch(queryParams);
   }
@@ -155,7 +121,6 @@ abcList.addEventListener('click', event => {
   }
 
   removeActiveLeter();
-
   event.target.classList.add('current-letter');
 
   queryParams.searchMethod = 'f';
@@ -166,6 +131,10 @@ abcList.addEventListener('click', event => {
 
 async function actionOnSearch(queryParams) {
   try {
+    const htmlNumBar = document.querySelectorAll('.navigation__item');
+    htmlNumBar.forEach(el => (el.innerHTML = ''));
+
+    const title = document.querySelector('.cocktails__title');
     const { searchMethod, fetchQuery } = queryParams;
     const json = await fetchBySrch(searchMethod, fetchQuery);
     cocktailList.innerHTML = '';
@@ -173,8 +142,10 @@ async function actionOnSearch(queryParams) {
     let shownCocktails;
 
     if (cocktailsArray === null) {
-      cocktailList.innerHTML = `<h2>НІЦ НЕМА</h2>`;
+      title.textContent = `Sorry, we didn't find any cocktail for you`;
       return;
+    } else {
+      title.textContent = `Cocktails`;
     }
 
     if (innerWidth < 768) {
@@ -186,32 +157,89 @@ async function actionOnSearch(queryParams) {
     }
 
     shownCocktails = cocktailsArray.slice(0, cocktailsPerPage);
-    cocktailList.insertAdjacentHTML(
-      'beforeend',
-      shownCocktails.map(createMarkup).join('')
-    );
+    cocktailList.innerHTML = shownCocktails.map(createMarkup).join('');
 
+    console.log('cocktailsArray.length', cocktailsArray.length);
+    console.log('shownCocktails.length', shownCocktails.length);
+
+    if (cocktailsArray.length > shownCocktails.length) {
+      const numsQuantity = Math.ceil(cocktailsArray.length / cocktailsPerPage);
+
+      const numsArrBelowPage = [];
+      for (let i = 1; i <= numsQuantity; i++) {
+        createNums(i);
+      }
+
+      function createNums(num) {
+        return numsArrBelowPage.push(`
+      <button class="pages__link" type='button'>${num}</button>
+      `);
+      }
+
+      const numBarBelowPage = document.querySelector('.pages');
+      numBarBelowPage.insertAdjacentHTML(
+        'beforeend',
+        numsArrBelowPage.join('')
+      );
+
+      const pageNums = document.querySelectorAll('.pages__link');
+
+      for (let pageNum of pageNums) {
+        const numOfPage = pageNum.textContent;
+        const pageStart = (numOfPage - 1) * cocktailsPerPage;
+        const pageEnd = pageStart + cocktailsPerPage;
+
+        pageNum.addEventListener('click', addTemplateToMarkup);
+
+        function addTemplateToMarkup() {
+          shownCocktails = cocktailsArray.slice(pageStart, pageEnd);
+
+          return (cocktailList.innerHTML = shownCocktails
+            .map(createMarkup)
+            .join(''));
+        }
+      }
+
+      createArrows();
+    }
     showModalInfo();
     actionOnLikeBtn();
-
-    for (let pageNum of pageNums) {
-      const numOfPage = pageNum.textContent;
-      const pageStart = (+numOfPage - 1) * cocktailsPerPage;
-      const pageEnd = pageStart + cocktailsPerPage;
-
-      pageNum.addEventListener('click', addTemplateToMarkup);
-
-      function addTemplateToMarkup() {
-        shownCocktails = cocktailsArray.slice(pageStart, pageEnd);
-
-        return (cocktailList.innerHTML = shownCocktails
-          .map(createMarkup)
-          .join(''));
-      }
-    }
   } catch (error) {
     console.log('Помилка в actionOnSearch ===> ', error);
   }
+}
+
+function createArrows() {
+  const pageNav = document.querySelector('.navigation');
+  const prevArrow = `
+      <li class="navigation__item">
+        <button class="navigation__btn-prev disabled" type="button">
+          <svg class="navigation__btn-prev-icon">
+            <use xlink:href="#icon-nav-prev">
+            <symbol id="icon-nav-prev" viewBox="0 0 21 32">
+              <path d="M16.533 0l-16 16 16 16 3.76-3.76-12.213-12.24 12.213-12.24z"></path>
+            </symbol>
+            </use>
+          </svg>
+        </button>
+      </li>
+    `;
+  const lastArrow = `
+      <li class="navigation__item">
+      <button class="navigation__btn-next" type="button">
+        <svg class="navigation__btn-next-icon">
+          <use xlink:href="#icon-nav-next">
+          <symbol id="icon-nav-next" viewBox="0 0 21 32">
+            <path d="M5.387 32l16-16-16-16-3.76 3.76 12.213 12.24-12.213 12.24z"></path>
+          </symbol>
+          </use>
+        </svg>
+      </button>
+    </li>
+      `;
+
+  pageNav.insertAdjacentHTML('afterbegin', prevArrow);
+  pageNav.insertAdjacentHTML('beforeend', lastArrow);
 }
 
 async function fetchBySrch(filter, entrie) {
@@ -258,7 +286,7 @@ async function userOpenMOdal(event) {
 
     return;
   } else {
-    id = event.target.id;
+    let id = event.target.id;
 
     const json = await srchById(id);
     console.log('json', json);
@@ -296,11 +324,11 @@ async function userOpenMOdal(event) {
       })
       .join('');
 
-    VovaSaid(listItems, myIngidient);
+    createCocktailModalMarkup(listItems, myIngidient);
 
     modalInteraction();
 
-    function VovaSaid(
+    function createCocktailModalMarkup(
       listItems,
       { strDrinkThumb, strDrink, strInstructions, idDrink }
     ) {
