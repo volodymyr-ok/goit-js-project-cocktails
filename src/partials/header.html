@@ -15,9 +15,9 @@
   </a>
   <div class="desk-box">
     <a href="./index.html" class="home-link">Home</a>
-    <div class="test">
-      <p class="favorite">Favorite</p>
 
+    <p class="favorite">Favorite</p>
+    <div class="test">
       <div class="favorite-pages-desk is-hidden">
         <ul>
           <li class="page-item">
@@ -43,15 +43,37 @@
       </svg>
     </button>
   </form>
+  <div class="theme-desk">
+    <label class="checkbox">
+      <input class="checkbox-input" name="theme" type="checkbox" />
+      <p class="ligth">Light</p>
+      <div class="checkbox-box"></div>
+      <p class="darkk">Dark</p>
+    </label>
+  </div>
   <button type="button" class="menu-open">
     <svg class="open-icon" width="32" height="16">
       <use href="./images/icons.svg#menu"></use>
     </svg>
   </button>
+  <!-- ============================================MOB MENU=========================================== -->
   <div class="menu-burger is-hidden">
-    <a href="./index.html" class="logo-tablet"
-      ><img src="./images/logo.tablet.png" alt="logo" width="156" height="43"
-    /></a>
+    <div class="logo-box">
+      <a href="./index.html" class="logo-menu"
+        ><img
+          src="./images/logo.tablet.png"
+          class="menu-img"
+          alt="logo"
+          width="156"
+          height="43"
+      /></a>
+      <label class="checkbox">
+        <input class="checkbox-input" name="theme" type="checkbox" />
+        <p class="ligth">Light</p>
+        <div class="checkbox-box"></div>
+        <p class="darkk">Dark</p>
+      </label>
+    </div>
     <button type="button" class="menu-close">
       <svg class="close-icon" width="32" height="32">
         <use href="./images/icons.svg#close"></use>
@@ -90,11 +112,4 @@
       </ul>
     </div>
   </div>
-
-  <label class="checkbox">
-    <input class="checkbox-input" name="theme" type="checkbox" />
-    <p class="ligth">Light</p>
-    <div class="checkbox-box"></div>
-    <p class="darkk">Dark</p>
-  </label>
 </header>

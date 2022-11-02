@@ -48,15 +48,24 @@
   }
 }
 
+.test {
+  z-index: 1;
+  position: absolute;
+  left: 330px;
+  top: 70px;
+  width: 230px;
+  height: 97px;
+}
+
 .favorite-pages-desk.is-hidden {
   display: none;
 }
 
 .favorite-pages-desk {
   display: block;
-  // position: absolute;
-  // top: 10px;
-  // left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 230px;
   height: 97px;
 
@@ -65,6 +74,10 @@
   text-align: left;
   border: 1px solid $grapefruit;
   border-radius: 4px;
+}
+
+.page-item a {
+  padding: 12px;
 }
 
 .page-item {
@@ -80,6 +93,15 @@
 .page-item:hover {
   color: $white;
   background-color: $grapefruit;
+}
+
+.theme-desk {
+  display: none;
+
+  @include desktop {
+    display: block;
+    padding-bottom: 2px;
+  }
 }
 
 .menu-open {
@@ -102,13 +124,15 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 100%;
+  width: 320px;
   height: 100%;
   padding: 90px 20px;
 
   background-color: $white;
 
   @include tablet {
+    right: 50px;
+    width: 768px;
     padding: 20px;
   }
 
@@ -117,11 +141,27 @@
   }
 }
 
-.logo-tablet {
+.logo-menu {
   display: none;
 
   @include tablet {
     display: block;
+  }
+}
+
+.logo-box {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+
+  @include tablet {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 60px;
+    height: 40px;
     margin-bottom: 50px;
   }
 }
@@ -160,6 +200,10 @@
 
     margin-right: 40px;
   }
+
+  @include desktop {
+    margin-right: 172px;
+  }
 }
 
 input {
@@ -171,6 +215,7 @@ input {
 
   @include desktop {
     width: 288px;
+    margin-top: 5px;
   }
 }
 
@@ -199,7 +244,7 @@ input {
   justify-content: center;
 
   width: 38px;
-  height: 38px;
+  height: 39px;
   padding: 0;
   border: none;
   border-right: 1px solid $grapefruit;
@@ -207,6 +252,10 @@ input {
 
   background-color: transparent;
   cursor: pointer;
+
+  @include desktop {
+    top: 6px;
+  }
 }
 
 .tablet-box {
@@ -275,6 +324,10 @@ input {
   @include desktop {
     display: none;
   }
+}
+
+.favorite-item a {
+  padding: 12px;
 }
 
 .favorite-item {

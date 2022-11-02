@@ -37,7 +37,6 @@
     z-index: 1;
     position: absolute;
     background-color: $white;
-    // padding-left: 20px;
     padding: 40px 20px;;
     // margin-left: auto;
     // margin-right: auto;
@@ -48,7 +47,7 @@
  
     
      @media screen and (min-width:715px){
-        min-width: 715px;
+        max-width: 822px;
     }
        }
     
@@ -211,3 +210,14 @@ height: 32px;
     clip: rect(0 0 0 0);
     overflow: hidden;
   }
+//     cursor: pointer;
+
+//     &:hover,
+//     &:focus{
+//         fill: #FD5103;
+//     }
+// }
+
+// .close{
+//     fill: #000000;
+// }
