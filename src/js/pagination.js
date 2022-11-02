@@ -301,8 +301,6 @@ async function userOpenMOdal(event) {
     let myIngidientsList = [];
     let myIngidientsRecipe = [];
 
-    console.log(myIngidient);
-
     for (let ingr in myIngidient) {
       if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
         myIngidientsList.push(myIngidient[ingr]);
