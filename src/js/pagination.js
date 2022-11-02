@@ -1,6 +1,8 @@
 import { storage } from './yuras';
 import { actionOnLikeBtn } from './yuras';
 import { onpenModalIngredient } from './yuras-m';
+import {showModalInfo} from './modal-coctail'
+// import ()
 
 import debounce from 'lodash.debounce';
 import { onpenModalIngredient } from './yuras-m';
@@ -279,151 +281,151 @@ function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
 
 // ===================================================================
 
-function showModalInfo() {
-  const btnReadMore = document.querySelectorAll('.btn__read-more');
-  btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
-}
+// export function showModalInfo() {
+//   const btnReadMore = document.querySelectorAll('.btn__read-more');
+//   btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
+// }
 
-async function userOpenMOdal(event) {
-  if (event.target.id.length === 0) {
-    console.log('event.target', event.target);
+// export async function userOpenMOdal(event) {
+//   if (event.target.id.length === 0) {
+//     console.log('event.target', event.target);
 
-    return;
-  } else {
-    let id = event.target.id;
+//     return;
+//   } else {
+//     let id = event.target.id;
 
-    const json = await srchById(id);
-    console.log('json', json);
+//     const json = await srchById(id);
+//     console.log('json', json);
 
-    let myIngidient = json.drinks[0];
-    console.log('myIngidient [0]', myIngidient);
+//     let myIngidient = json.drinks[0];
+//     console.log('myIngidient [0]', myIngidient);
 
-    let myIngidientsList = [];
-    let myIngidientsRecipe = [];
+//     let myIngidientsList = [];
+//     let myIngidientsRecipe = [];
 
-    for (let ingr in myIngidient) {
-      if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
-        myIngidientsList.push(myIngidient[ingr]);
-      }
-    }
-    for (let ingr in myIngidient) {
-      if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
-        myIngidientsRecipe.push(myIngidient[ingr]);
-      }
-    }
-    console.log('myIngidientsList', myIngidientsList);
-    console.log('myIngidientsRecipe', myIngidientsRecipe);
+//     for (let ingr in myIngidient) {
+//       if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
+//         myIngidientsList.push(myIngidient[ingr]);
+//       }
+//     }
+//     for (let ingr in myIngidient) {
+//       if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
+//         myIngidientsRecipe.push(myIngidient[ingr]);
+//       }
+//     }
+//     console.log('myIngidientsList', myIngidientsList);
+//     console.log('myIngidientsRecipe', myIngidientsRecipe);
 
-    const local = document.querySelector('.local-storage-ingr');
-    console.log(local);
+//     const local = document.querySelector('.local-storage-ingr');
+//     console.log(local);
 
-    let number = -1;
+//     let number = -1;
 
-    const listItems = myIngidientsList
-      .map(el => {
-        number++;
-        return `<li class="modal-item coctal-item">✶ ${
-          myIngidientsRecipe[number] || ''
-        }
-         <a href="#" class="modal-link coctal-link">${el}</a> </li>`;
-      })
-      .join('');
+//     const listItems = myIngidientsList
+//       .map(el => {
+//         number++;
+//         return `<li class="modal-item coctal-item">✶ ${
+//           myIngidientsRecipe[number] || ''
+//         }
+//          <a href="#" class="modal-link coctal-link">${el}</a> </li>`;
+//       })
+//       .join('');
 
-    createCocktailModalMarkup(listItems, myIngidient);
+//     createCocktailModalMarkup(listItems, myIngidient);
 
-    modalInteraction();
-    // onpenModalIngredient();
+//     modalInteraction();
+//     // onpenModalIngredient();
 
-    function createCocktailModalMarkup(
-      listItems,
-      { strDrinkThumb, strDrink, strInstructions, idDrink }
-    ) {
-      return (local.innerHTML = `<div id="modal-koktel" class="modal-coctal modal">
-        <div class="modal-content container">
-          <div class="first-part-decor">
-            <img src="${strDrinkThumb}" alt="${strDrink}" class="img-coctal-desctop" />
-            <h2 class="modal-title hidden-name">${strDrink}</h2>
-            <div class="decoration-koktels">
-              <h2 class="modal-title coctal-name">${strDrink}</h2>
-              <h3 class="koktel-ingr">INGREDIENTS</h3>
-              <p class="after-coctal-ingr">Per cocktail</p>
-              <ul class="modal-list coctal-list">
-                ${listItems}
-              </ul>
-            </div>
-          </div>
+//     function createCocktailModalMarkup(
+//       listItems,
+//       { strDrinkThumb, strDrink, strInstructions, idDrink }
+//     ) {
+//       return (local.innerHTML = `<div id="modal-koktel" class="modal-coctal modal">
+//         <div class="modal-content container">
+//           <div class="first-part-decor">
+//             <img src="${strDrinkThumb}" alt="${strDrink}" class="img-coctal-desctop" />
+//             <h2 class="modal-title hidden-name">${strDrink}</h2>
+//             <div class="decoration-koktels">
+//               <h2 class="modal-title coctal-name">${strDrink}</h2>
+//               <h3 class="koktel-ingr">INGREDIENTS</h3>
+//               <p class="after-coctal-ingr">Per cocktail</p>
+//               <ul class="modal-list coctal-list">
+//                 ${listItems}
+//               </ul>
+//             </div>
+//           </div>
       
-          <p class="koktel-instr modal-after-title">Instractions:</p>
-          <button type="button" class="isClose">x</button>
-          <p class="koktel-instr-text modal-text">${strInstructions}
-          </p>
-          <img src="${strDrinkThumb}" alt="${strDrink}" class="img-coctal-modile" />
+//           <p class="koktel-instr modal-after-title">Instractions:</p>
+//           <button type="button" class="isClose">x</button>
+//           <p class="koktel-instr-text modal-text">${strInstructions}
+//           </p>
+//           <img src="${strDrinkThumb}" alt="${strDrink}" class="img-coctal-modile" />
        
-          <div class="decoration-coctal">
-            <h3 class="coctal-ingr">INGREDIENTS</h3>
-            <p class="after-coctal-ingr">Per cocktail</p>
-            <ul class="modal-list coctal-list">
-              ${listItems}
-            </ul>
-          </div>
-          <div class="decoration-button">
-            <button id="${idDrink}" class="button-test">Add to favorite</button>
-          </div>
-        </div>
-      </div>`);
-    }
-  }
-}
+//           <div class="decoration-coctal">
+//             <h3 class="coctal-ingr">INGREDIENTS</h3>
+//             <p class="after-coctal-ingr">Per cocktail</p>
+//             <ul class="modal-list coctal-list">
+//               ${listItems}
+//             </ul>
+//           </div>
+//           <div class="decoration-button">
+//             <button id="${idDrink}" class="button-test">Add to favorite</button>
+//           </div>
+//         </div>
+//       </div>`);
+//     }
+//   }
+// }
 
-async function srchById(id) {
-  try {
-    console.log('перед фетчом');
-    return await fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
-    ).then(response => response.json());
-  } catch (error) {
-    throw new Error('Помилка при ФЕТЧІ ===> ' + error.message);
-  }
-}
+// async function srchById(id) {
+//   try {
+//     console.log('перед фетчом');
+//     return await fetch(
+//       `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
+//     ).then(response => response.json());
+//   } catch (error) {
+//     throw new Error('Помилка при ФЕТЧІ ===> ' + error.message);
+//   }
+// }
 
 // ==================================================================
 
-export function modalInteraction() {
-  onpenModalIngredient();
-  // window.addEventListener('scroll', (e) => {
-  //   window.scrollTo(0,0);
-  // });
-  const btnAdd = document.querySelector('.button-test');
-  const body = document.querySelector('body');
-  body.classList.add('no-scroll');
+// export function modalInteraction() {
+//   onpenModalIngredient();
+//   // window.addEventListener('scroll', (e) => {
+//   //   window.scrollTo(0,0);
+//   // });
+//   const btnAdd = document.querySelector('.button-test');
+//   const body = document.querySelector('body');
+//   body.classList.add('no-scroll');
 
-  const btnClose = document.querySelector('.isClose');
-  const modal = document.querySelector('.modal');
-  console.log(btnClose);
-  btnClose.addEventListener('click', modalClose);
+//   const btnClose = document.querySelector('.isClose');
+//   const modal = document.querySelector('.modal');
+//   console.log(btnClose);
+//   btnClose.addEventListener('click', modalClose);
 
-  function modalClose(event) {
-    console.log(event.target);
-    modal.classList.add('hidden-modal');
-    body.classList.remove('no-scroll');
-  }
+//   function modalClose(event) {
+//     console.log(event.target);
+//     modal.classList.add('hidden-modal');
+//     body.classList.remove('no-scroll');
+//   }
 
-  btnAdd.addEventListener('click', use);
-  function use(event) {
-    console.log('event.target >>>', event.target);
-    console.log('event.target.id >>>', event.target.id);
-    if (event.target.id.length === 0) {
-      return;
-    }
-    if (!storage.includes(event.target.id)) {
-      storage.push(event.target.id);
-      // event.path[0].lastElementChild.classList.add('active-like-btn');
-      event.path[0].firstChild.textContent = 'Remove';
-    } else {
-      storage.splice(storage.indexOf(event.target.id), 1);
-      // event.path[0].lastElementChild.classList.remove('active-like-btn');
-      event.path[0].firstChild.textContent = 'Add to';
-    }
-    localStorage.setItem('drinksId', storage);
-  }
-}
+//   btnAdd.addEventListener('click', use);
+//   function use(event) {
+//     console.log('event.target >>>', event.target);
+//     console.log('event.target.id >>>', event.target.id);
+//     if (event.target.id.length === 0) {
+//       return;
+//     }
+//     if (!storage.includes(event.target.id)) {
+//       storage.push(event.target.id);
+//       // event.path[0].lastElementChild.classList.add('active-like-btn');
+//       event.path[0].firstChild.textContent = 'Remove';
+//     } else {
+//       storage.splice(storage.indexOf(event.target.id), 1);
+//       // event.path[0].lastElementChild.classList.remove('active-like-btn');
+//       event.path[0].firstChild.textContent = 'Add to';
+//     }
+//     localStorage.setItem('drinksId', storage);
+//   }
+// }
