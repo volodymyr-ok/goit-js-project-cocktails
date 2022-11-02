@@ -1,6 +1,6 @@
 import { storage } from './yuras';
 import { actionOnLikeBtn } from './yuras';
-import {onpenModalIngredient} from './yuras-m'
+import { onpenModalIngredient } from './yuras-m';
 
 import debounce from 'lodash.debounce';
 import { onpenModalIngredient } from './yuras-m';
@@ -51,7 +51,7 @@ async function getRandomCocktails(event) {
 
     showModalInfo();
     actionOnLikeBtn();
-    
+
     // }
   } catch (error) {
     console.log('Помилка у getRandomCocktails', error);
@@ -123,7 +123,7 @@ abcList.addEventListener('click', event => {
   if (event.currentTarget === event.target) {
     return;
   }
- 
+
   removeActiveLeter();
   event.target.classList.add('current-letter');
 
@@ -257,7 +257,6 @@ async function fetchBySrch(filter, entrie) {
 }
 
 function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
-  
   return `
 <li class="coctails__item">
   <img src="${strDrinkThumb}" alt="${strDrink}" width="280" height="280" />
@@ -283,9 +282,7 @@ function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
 function showModalInfo() {
   const btnReadMore = document.querySelectorAll('.btn__read-more');
   btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
-
 }
-
 
 async function userOpenMOdal(event) {
   if (event.target.id.length === 0) {
@@ -293,8 +290,7 @@ async function userOpenMOdal(event) {
 
     return;
   } else {
-  
-let id = event.target.id;
+    let id = event.target.id;
 
     const json = await srchById(id);
     console.log('json', json);
@@ -305,12 +301,14 @@ let id = event.target.id;
     let myIngidientsList = [];
     let myIngidientsRecipe = [];
 
-    for (ingr in myIngidient) {
+    console.log(myIngidient);
+
+    for (let ingr in myIngidient) {
       if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
         myIngidientsList.push(myIngidient[ingr]);
       }
     }
-    for (ingr in myIngidient) {
+    for (let ingr in myIngidient) {
       if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
         myIngidientsRecipe.push(myIngidient[ingr]);
       }
@@ -322,7 +320,7 @@ let id = event.target.id;
     console.log(local);
 
     let number = -1;
-    
+
     const listItems = myIngidientsList
       .map(el => {
         number++;
@@ -393,25 +391,23 @@ async function srchById(id) {
 // ==================================================================
 
 export function modalInteraction() {
-  onpenModalIngredient()
+  onpenModalIngredient();
   // window.addEventListener('scroll', (e) => {
   //   window.scrollTo(0,0);
   // });
   const btnAdd = document.querySelector('.button-test');
-  const body = document.querySelector('body')
- body.classList.add('no-scroll')
+  const body = document.querySelector('body');
+  body.classList.add('no-scroll');
 
   const btnClose = document.querySelector('.isClose');
   const modal = document.querySelector('.modal');
   console.log(btnClose);
   btnClose.addEventListener('click', modalClose);
 
-  
-
   function modalClose(event) {
     console.log(event.target);
     modal.classList.add('hidden-modal');
-    body.classList.remove('no-scroll')
+    body.classList.remove('no-scroll');
   }
 
   btnAdd.addEventListener('click', use);
