@@ -305,12 +305,12 @@ let id = event.target.id;
     let myIngidientsList = [];
     let myIngidientsRecipe = [];
 
-    for (ingr in myIngidient) {
+    for (let ingr in myIngidient) {
       if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
         myIngidientsList.push(myIngidient[ingr]);
       }
     }
-    for (ingr in myIngidient) {
+    for (let ingr in myIngidient) {
       if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
         myIngidientsRecipe.push(myIngidient[ingr]);
       }
