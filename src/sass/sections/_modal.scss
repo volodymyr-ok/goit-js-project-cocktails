@@ -6,19 +6,11 @@
     height: 100%;
     top: 0;
     left: 0%;
+
        overflow: auto;
      
 }
-// .modal-content:before {
-//     content: " ";
-//     position: fixed;
-//     left: 0;
-//     top: 0;
-//     width: 100%;
-//     height: 100%;
-//     background-color: rgba(0,0,0,0.3);
-//     z-index: -1;
-//   }
+
 .modall{
     background-color: rgba($color: #000000, $alpha: 0.8);
     z-index: 0;
@@ -30,6 +22,7 @@
 
    
     overflow: scroll;
+
 }
 
 .modal-content{
@@ -37,15 +30,15 @@
     z-index: 1;
     position: absolute;
     background-color: $white;
-    padding: 40px 20px;;
-    // margin-left: auto;
-    // margin-right: auto;
-// max-height: 100%;
+    padding: 40px 20px;
+
+
     top: 50%;
     left: 50%;
     transform: translate(-50%, -30%) ;
  
     
+
      @media screen and (min-width:715px){
         max-width: 822px;
     }
@@ -184,6 +177,7 @@ height: 32px;
     border: 0;
     top: 0;
     right: 0;
+
 }
 
 .isClosee{
@@ -221,3 +215,4 @@ height: 32px;
 // .close{
 //     fill: #000000;
 // }
+

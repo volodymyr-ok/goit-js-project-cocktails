@@ -293,8 +293,8 @@ async function userOpenMOdal(event) {
 
     return;
   } else {
-    let id
-    id = event.target.id;
+  
+let id = event.target.id;
 
     const json = await srchById(id);
     console.log('json', json);
