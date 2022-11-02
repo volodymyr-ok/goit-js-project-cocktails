@@ -1,5 +1,17 @@
 <section class="cocktails container">
   <h2 class="cocktails__title">Cocktails</h2>
+  <picture>
+    <source srcset="./images/sorry.desk.png" media="(min-width:1200px)" />
+    <source srcset="./images/sorry.tab.png" media="(min-width:768px)" />
+    <source srcset="./images/sorry.mob.png" media="(min-width:320px)" />
+    <img
+      src="./images/sorry.mob.png"
+      alt="Sorry, we didn't find any cocktail for you"
+      class="sorry-image"
+      width="280"
+      height="308"
+    />
+  </picture>
 
   <ul class="cocktails__list"></ul>
 

@@ -124,20 +124,26 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 320px;
+  width: 100%;
   height: 100%;
-  padding: 90px 20px;
 
   background-color: $white;
 
-  @include tablet {
-    right: 50px;
-    width: 768px;
-    padding: 20px;
-  }
-
   @include desktop {
     display: none;
+  }
+}
+
+.menu-container {
+  position: relative;
+  width: 320px;
+  padding: 90px 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include tablet {
+    width: 768px;
+    padding: 20px;
   }
 }
 
@@ -169,7 +175,7 @@
 .menu-close {
   position: absolute;
   top: 22px;
-  right: 20px;
+  right: 30px;
 
   width: 32px;
   height: 32px;
