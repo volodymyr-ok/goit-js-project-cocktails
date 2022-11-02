@@ -1,7 +1,9 @@
 import { storage } from './yuras';
 import { actionOnLikeBtn } from './yuras';
+import {onpenModalIngredient} from './yuras-m'
 
 import debounce from 'lodash.debounce';
+import { onpenModalIngredient } from './yuras-m';
 const cocktailList = document.querySelector('.cocktails__list');
 const srchInput = document.querySelector('.input-tablet');
 const mobInput = document.querySelector('.input-mobile');
@@ -49,6 +51,8 @@ async function getRandomCocktails(event) {
 
     showModalInfo();
     actionOnLikeBtn();
+    
+    // }
   } catch (error) {
     console.log('Помилка у getRandomCocktails', error);
   }
@@ -119,7 +123,7 @@ abcList.addEventListener('click', event => {
   if (event.currentTarget === event.target) {
     return;
   }
-
+ 
   removeActiveLeter();
   event.target.classList.add('current-letter');
 
@@ -253,6 +257,7 @@ async function fetchBySrch(filter, entrie) {
 }
 
 function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
+  
   return `
 <li class="coctails__item">
   <img src="${strDrinkThumb}" alt="${strDrink}" width="280" height="280" />
@@ -278,7 +283,9 @@ function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
 function showModalInfo() {
   const btnReadMore = document.querySelectorAll('.btn__read-more');
   btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
+
 }
+
 
 async function userOpenMOdal(event) {
   if (event.target.id.length === 0) {
@@ -286,7 +293,8 @@ async function userOpenMOdal(event) {
 
     return;
   } else {
-    let id = event.target.id;
+  
+let id = event.target.id;
 
     const json = await srchById(id);
     console.log('json', json);
@@ -314,10 +322,11 @@ async function userOpenMOdal(event) {
     console.log(local);
 
     let number = -1;
+    
     const listItems = myIngidientsList
       .map(el => {
         number++;
-        return `<li class="modal-item coctal-item">${
+        return `<li class="modal-item coctal-item">✶ ${
           myIngidientsRecipe[number] || ''
         }
          <a href="#" class="modal-link coctal-link">${el}</a> </li>`;
@@ -327,6 +336,7 @@ async function userOpenMOdal(event) {
     createCocktailModalMarkup(listItems, myIngidient);
 
     modalInteraction();
+    // onpenModalIngredient();
 
     function createCocktailModalMarkup(
       listItems,
@@ -382,17 +392,26 @@ async function srchById(id) {
 
 // ==================================================================
 
-function modalInteraction() {
+export function modalInteraction() {
+  onpenModalIngredient()
+  // window.addEventListener('scroll', (e) => {
+  //   window.scrollTo(0,0);
+  // });
   const btnAdd = document.querySelector('.button-test');
-  console.log(btnAdd);
+  const body = document.querySelector('body')
+ body.classList.add('no-scroll')
+
   const btnClose = document.querySelector('.isClose');
   const modal = document.querySelector('.modal');
   console.log(btnClose);
   btnClose.addEventListener('click', modalClose);
 
+  
+
   function modalClose(event) {
     console.log(event.target);
     modal.classList.add('hidden-modal');
+    body.classList.remove('no-scroll')
   }
 
   btnAdd.addEventListener('click', use);

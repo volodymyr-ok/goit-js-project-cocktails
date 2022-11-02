@@ -1,22 +1,44 @@
 .modal{
     background-color: rgba($color: #000000, $alpha: 0.8);
-    z-index: 1;
+    z-index: 0;
     position:fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0%;
-//    overflow: scroll;
+
+       overflow: auto;
+     
+}
+
+.modall{
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    z-index: 0;
+    position:fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0%;
+
+   
+    overflow: scroll;
+
 }
 
 .modal-content{
+    // overflow: auto;
+    z-index: 1;
     position: absolute;
     background-color: $white;
-    padding: 40px 20px;;
+    padding: 40px 20px;
+
+
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) ;
-    max-width: 310px;
+    transform: translate(-50%, -30%) ;
+ 
+    
+
      @media screen and (min-width:715px){
         max-width: 822px;
     }
@@ -114,6 +136,25 @@
         color: $orange;
         background-color: white;
     }
+}
+       
+    .button-testt{
+    
+        margin-top: 32px;
+    
+        color: white;
+        border: none;
+        background-color: $orange;
+        width: 185px;
+        height: 48px;
+        border-radius: 4px;
+
+         
+    &:hover,
+    &:focus{
+        color: $orange;
+        background-color: white;
+    }
 
     // @media screen and (min-width:715px){
     //     margin-bottom: 28px;
@@ -136,14 +177,42 @@ height: 32px;
     border: 0;
     top: 0;
     right: 0;
-    cursor: pointer;
 
-    &:hover,
-    &:focus{
-        fill: #FD5103;
-    }
 }
+
+.isClosee{
+    width: 32px;
+height: 32px;
+    border-radius: 50%;
+    background-color: transparent;
+    position: absolute;
+    border: 0;
+    top: 0;
+    right: 0;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+  }
+//     cursor: pointer;
+
+//     &:hover,
+//     &:focus{
+//         fill: #FD5103;
+//     }
+// }
 
 // .close{
 //     fill: #000000;
 // }
+
