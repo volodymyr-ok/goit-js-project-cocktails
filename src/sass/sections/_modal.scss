@@ -6,22 +6,19 @@
     height: 100%;
     top: 0;
     left: 0%;
-    // overflow: auto;
+//    overflow: scroll;
 }
 
 .modal-content{
     position: absolute;
     background-color: $white;
-    // padding-left: 20px;
     padding: 40px 20px;;
-    // margin-left: auto;
-    // margin-right: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) ;
-
+    max-width: 310px;
      @media screen and (min-width:715px){
-        min-width: 715px;
+        max-width: 822px;
     }
        }
     
@@ -139,4 +136,14 @@ height: 32px;
     border: 0;
     top: 0;
     right: 0;
+    cursor: pointer;
+
+    &:hover,
+    &:focus{
+        fill: #FD5103;
+    }
 }
+
+// .close{
+//     fill: #000000;
+// }
