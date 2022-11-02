@@ -135,3 +135,110 @@
 //     // console.log(storage)
 //   }
 // }, 10000);
+// setTimeout(()=>{
+
+//     // addEventListener
+// },5000)
+// import { modalInteraction } from "./pagination"
+
+const storageIngr = [];
+
+const markupModalIng = document.querySelector('.local-storage-ingredient');
+export function onpenModalIngredient() {
+  const ingredientLink = document.querySelectorAll('.modal-link');
+
+  ingredientLink.forEach(el => el.addEventListener('click', openIngrModal));
+  let resultIngr;
+  async function openIngrModal(event) {
+    event.preventDefault();
+    // console.log(event.target.textContent)
+    let ingr = event.target.textContent;
+    const json = await srchByIngr(ingr);
+    resultIngr = json.ingredients[0];
+    console.log(resultIngr);
+    markupModalIngr(resultIngr);
+    modalIngrInteraction();
+  }
+}
+
+function markupModalIngr(resultIngr) {
+  return (markupModalIng.innerHTML = `<div id="modal" class="modall">
+    <div class="modal-content container">
+      <h2 class="modal-title">${resultIngr.strIngredient}</h2>
+      <h3 class="modal-after-title">${resultIngr.strType}</h3>
+      <p class="modal-text">
+        <span class="modal-name-title">${resultIngr.strIngredient}</span>${resultIngr.strDescription}
+      </p>
+      <ul class="modal-list">
+        <li class="modal-item">
+          <a href="#" class="modal-link">✶ Type: Bitters</a>
+        </li>
+        <li class="modal-item">
+          <a href="#" class="modal-link"> ✶ Country of origin: Italy</a>
+        </li> 
+        <li class="modal-item">
+          <a href="#" class="modal-link">✶ Alcohol by volume: 20.5–28.5%</a>
+        </li>
+        <li class="modal-item">
+          <a href="#" class="modal-link">✶ Flavour: Bitter, spicy and sweet</a>
+        </li>  
+      </ul>
+      <div class="decoration-button">
+        <button  id='${resultIngr.idIngredient}' class="button-testt">Add to favorite</button>
+      </div>
+      <button id='${resultIngr.idIngredient}' type="button" class="isClosee">x</button>
+    </div>
+  </div>`);
+}
+
+async function srchByIngr(ingr) {
+  try {
+    console.log('перед фетчом');
+    return await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${ingr}`
+    ).then(response => response.json());
+  } catch (error) {
+    throw new Error('Помилка при ФЕТЧІ ===> ' + error.message);
+  }
+}
+reload();
+function modalIngrInteraction() {
+  const btnAdd = document.querySelector('.button-testt');
+
+  const btnClosee = document.querySelector('.isClosee');
+  const modal = document.querySelector('.modall');
+
+  btnClosee.addEventListener('click', modalClose);
+
+  function modalClose(event) {
+    console.log(event.target);
+    modal.classList.add('hidden-modal');
+  }
+
+  btnAdd.addEventListener('click', use);
+  function use(event) {
+    console.log('event.target >>>', event.target);
+    console.log('event.target.id >>>', event.target.id);
+    if (event.target.id.length === 0) {
+      return;
+    }
+    if (!storageIngr.includes(event.target.id)) {
+      storageIngr.push(event.target.id);
+      // event.path[0].lastElementChild.classList.add('active-like-btn');
+      event.path[0].firstChild.textContent = 'Remove from favorite';
+    } else {
+      storageIngr.splice(storageIngr.indexOf(event.target.id), 1);
+      // event.path[0].lastElementChild.classList.remove('active-like-btn');
+      event.path[0].firstChild.textContent = 'Add to favorite';
+    }
+    localStorage.setItem('drinksIngrId', storageIngr);
+  }
+}
+
+function reload() {
+  let user = localStorage.getItem('drinksIngrId');
+  if (user) {
+    let ara = user.split(',');
+    ara.forEach(el => storageIngr.push(el));
+  }
+}

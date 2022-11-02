@@ -29,3 +29,4 @@ function reload() {
     ara.forEach(el => storage.push(el));
   }
 }
+console.log(storage)
