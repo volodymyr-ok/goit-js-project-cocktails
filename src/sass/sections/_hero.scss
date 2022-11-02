@@ -103,17 +103,18 @@
 option {
   border: 1px solid $grapefruit;
   border-radius: 4px;
+  height: 50px;
 }
 
 /*============================LETTERS SEARCH TABLET AND DESKTOP=================================*/
 .letters-list {
   display: none;
   @include tablet {
-    width: 324px;
+    width: 330px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 15px;
+    justify-content: center;
+    gap: 5px;
 
     font-weight: 700;
     font-size: 14px;
@@ -123,11 +124,32 @@ option {
   }
 
   @include desktop {
-    width: 500px;
-    gap: 23px;
+    width: 520px;
+    gap: 10px;
 
     font-size: 24px;
     line-height: 1.5;
+  }
+}
+
+.letter-item {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+
+  @include desktop {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.letter-item:nth-child(n + 27) {
+  margin-left: 3px;
+  @include desktop {
+    margin-left: 5px;
   }
 }
 

@@ -14,43 +14,77 @@
 
 <body>
   <header class="header container">
-    <a href="./index.html" class="logo">
+    <a href="./index.html" class="logo-link">
       <picture>
-        <source srcset="./images/logo.desk.png" media="(min-width:1200px)">
-        <source srcset="./images/logo.tablet.png" media="(min-width:768px)">
-        <source srcset="./images/logo.png" media="(min-width:320px)">
-        <img src="./images/logo.png" alt="logo" width="124" height="34">
+        <source srcset="./images/logo.desk.png" media="(min-width:1200px)" />
+        <source srcset="./images/logo.tablet.png" media="(min-width:768px)" />
+        <source srcset="./images/logo.png" media="(min-width:320px)" />
+        <img src="./images/logo.png" alt="logo" class="logo" width="124" height="34" />
       </picture>
     </a>
-    <label for="#" class="input-tablet">
+    <div class="desk-box">
+      <a href="./index.html" class="home-link">Home</a>
+
+      <p class="favorite">Favorite</p>
+      <div class="test">
+        <div class="favorite-pages-desk is-hidden">
+          <ul>
+            <li class="page-item">
+              <a href="./cocktails.html">Favorite cocktails</a>
+            </li>
+            <li class="page-item">
+              <a href="./ingridients.html">Favorite ingridients</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <form class="input-tablet">
       <input type="text" name="searchQuery" autocomplete="off" placeholder="Search" />
       <button type="submit" class="search-btn">
         <svg width="24" height="24" class="search-icon">
           <use href="./images/icons.svg#search"></use>
         </svg>
       </button>
-    </label>
+    </form>
+    <div class="theme-desk">
+      <label class="checkbox">
+        <input class="checkbox-input" name="theme" type="checkbox" />
+        <p class="ligth">Light</p>
+        <div class="checkbox-box"></div>
+        <p class="darkk">Dark</p>
+      </label>
+    </div>
     <button type="button" class="menu-open">
       <svg class="open-icon" width="32" height="16">
         <use href="./images/icons.svg#menu"></use>
       </svg>
     </button>
-
+    <!-- ============================================MOB MENU=========================================== -->
     <div class="menu-burger is-hidden">
-      <a href="./index.html" class="logo-tablet"><img src="./images/logo.tablet.png" alt="logo"></a>
+      <div class="logo-box">
+        <a href="./index.html" class="logo-menu"><img src="./images/logo.tablet.png" class="menu-img" alt="logo"
+            width="156" height="43" /></a>
+        <label class="checkbox">
+          <input class="checkbox-input" name="theme" type="checkbox" />
+          <p class="ligth">Light</p>
+          <div class="checkbox-box"></div>
+          <p class="darkk">Dark</p>
+        </label>
+      </div>
       <button type="button" class="menu-close">
         <svg class="close-icon" width="32" height="32">
           <use href="./images/icons.svg#close"></use>
         </svg>
       </button>
-      <label for="#" class="input-mobile">
+      <form class="input-mobile">
         <input type="text" name="searchQuery" autocomplete="off" placeholder="Search" />
         <button type="submit" class="search-btn">
           <svg width="24" height="24" class="search-icon">
             <use href="./images/icons.svg#search"></use>
           </svg>
         </button>
-      </label>
+      </form>
       <div class="tablet-box">
         <a href="./index.html" class="home-link">Home</a>
         <div class="box">
@@ -62,8 +96,12 @@
       </div>
       <div class="favorite-pages is-hidden">
         <ul>
-          <li><a href="./cocktails.html">Cocktails</a></li>
-          <li><a href="./ingridients.html">Ingridients</a></li>
+          <li class="favorite-item">
+            <a href="./cocktails.html">Favorite cocktails</a>
+          </li>
+          <li class="favorite-item">
+            <a href="./ingridients.html">Favorite ingridients</a>
+          </li>
         </ul>
       </div>
     </div>
