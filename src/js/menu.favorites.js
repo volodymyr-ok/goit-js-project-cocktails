@@ -30,7 +30,7 @@ favoriteMenuDesk.addEventListener('mouseover', () => {
   favoriteDesktop.classList.remove('is-hidden');
 });
 
-favoriteDesktop.addEventListener('mouseout', () => {
+favoriteMenuDesk.addEventListener('mouseout', () => {
   setTimeout(() => {
     favoriteDesktop.classList.add('is-hidden');
   }, 3000);
