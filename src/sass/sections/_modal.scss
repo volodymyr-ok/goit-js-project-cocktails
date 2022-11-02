@@ -35,7 +35,7 @@
 
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -30%) ;
+    transform: translate(-50%, -50%) ;
  
     
 
@@ -43,6 +43,24 @@
         max-width: 822px;
     }
        }
+       .modal-contentt{
+        // overflow: auto;
+        z-index: 1;
+        position: absolute;
+        background-color: $white;
+        padding: 40px 20px;
+    
+    
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -30%) ;
+     
+        
+    
+         @media screen and (min-width:715px){
+            max-width: 822px;
+        }
+           }
     
     .modal-title{
     
