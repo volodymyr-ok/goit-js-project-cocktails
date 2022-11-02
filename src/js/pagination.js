@@ -1,7 +1,7 @@
 import { storage } from './yuras';
 import { actionOnLikeBtn } from './yuras';
 import { onpenModalIngredient } from './yuras-m';
-import {showModalInfo} from './modal-coctail'
+import { showModalInfo } from './modal-coctail';
 // import ()
 
 import debounce from 'lodash.debounce';
@@ -151,8 +151,10 @@ async function actionOnSearch(queryParams) {
       title.textContent = `Sorry, we didn't find any cocktail for you`;
       return;
     } else {
-      title.textContent = `Cocktails`;
+      title.textContent = 'Search results';
     }
+
+    console.log(title.textContent);
 
     if (innerWidth < 768) {
       cocktailsPerPage = 3;
@@ -354,13 +356,13 @@ function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
 //               </ul>
 //             </div>
 //           </div>
-      
+
 //           <p class="koktel-instr modal-after-title">Instractions:</p>
 //           <button type="button" class="isClose">x</button>
 //           <p class="koktel-instr-text modal-text">${strInstructions}
 //           </p>
 //           <img src="${strDrinkThumb}" alt="${strDrink}" class="img-coctal-modile" />
-       
+
 //           <div class="decoration-coctal">
 //             <h3 class="coctal-ingr">INGREDIENTS</h3>
 //             <p class="after-coctal-ingr">Per cocktail</p>
