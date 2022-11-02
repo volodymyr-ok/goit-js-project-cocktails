@@ -1,6 +1,6 @@
-.cocktails{
+.cocktails {
   padding-bottom: 60px;
-  &__title{
+  &__title {
     text-align: center;
     text-shadow: 0 4px 4px #00000040;
     font-family: Poppins;
@@ -8,27 +8,24 @@
     font-weight: 600;
     line-height: 1.91;
   }
-  &__list{
+  &__list {
     flex-direction: column;
     justify-content: center;
     gap: 20px;
     padding-top: 60px;
     display: flex;
-    @include tablet{
-        flex-flow: wrap;
+    @include tablet {
+      flex-flow: wrap;
     }
   }
 }
-
-
-
 
 .coctails__item {
   display: flex;
   flex-direction: column;
   /* align-items: flex-end; */
   justify-content: flex-end;
-  
+
   min-width: 280px;
   min-height: 449px;
   text-align: center;
@@ -36,35 +33,33 @@
   border-radius: 4px;
   padding-bottom: 24px;
   overflow: hidden;
-  @include tablet{
-      min-width: 335px;
-      max-width: 335px;
-      min-height: 541px;
-      // gap: 32px;
-      padding-bottom: 20px;
+  @include tablet {
+    min-width: 335px;
+    max-width: 335px;
+    min-height: 541px;
+    // gap: 32px;
+    padding-bottom: 20px;
   }
-  & img{
-    @include tablet{
+  & img {
+    @include tablet {
       min-width: 335px;
       max-width: 335px;
       height: 395px;
     }
   }
-  @include desktop{
-      min-width: 395px;
-      max-width: 397px;
-      min-height: 556px;
+  @include desktop {
+    min-width: 395px;
+    max-width: 397px;
+    min-height: 556px;
   }
-  & img{
-    @include desktop{
+  & img {
+    @include desktop {
       width: 395px;
       max-width: 397px;
       height: 395px;
     }
   }
-
 }
-
 
 // @media screen and (min-width: 768px) {
 //   .coctails__item img {
@@ -81,8 +76,8 @@
   font-weight: 900;
   line-height: 1.62;
   flex-grow: 1;
-  @include tablet{
-      margin-top: 20px;
+  @include tablet {
+    margin-top: 20px;
   }
 }
 
@@ -92,18 +87,17 @@
   margin-top: 16px;
   display: flex;
   margin-top: auto;
-  @include tablet{
-      margin-top: 25px;
+  @include tablet {
+    margin-top: 25px;
   }
-  @include desktop{
+  @include desktop {
     gap: 16;
+  }
 }
-}
-
 
 .btn__read-more {
   text-align: center;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
   color: #fff;
   min-width: 108px;
   background-color: #fe7031;
@@ -114,18 +108,17 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 1.71;
-  @include tablet{
-      padding: 0 27px;
-      font-size: 20px;
+  @include tablet {
+    padding: 0 27px;
+    font-size: 20px;
   }
-  @include desktop{
+  @include desktop {
     padding: 0 37px;
+  }
 }
-}
-
 
 .btn__like {
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
   color: #fd5103;
   min-width: 108px;
   background-color: transparent;
@@ -141,28 +134,26 @@
   line-height: 1.71;
   display: flex;
   min-width: 110px;
-  @include tablet{
-      font-size: 20px;
-      min-width: 123px;
+  @include tablet {
+    font-size: 20px;
+    min-width: 123px;
   }
-  @include desktop{
+  @include desktop {
     padding: 6px 0px;
     min-width: 141px;
+  }
 }
-}
 
-
-
-.btn__like-icon{
+.btn__like-icon {
   width: 21px;
   height: 19px;
   fill: white;
 }
 
-.navigation{
+.navigation {
   display: flex;
   justify-content: center;
-  &__item{
+  &__item {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -171,13 +162,12 @@
     display: flex;
   }
 }
-.navigation__btn-next:hover, 
-.navigation__btn-next:focus, 
-.navigation__btn-prev:hover, 
+.navigation__btn-next:hover,
+.navigation__btn-next:focus,
+.navigation__btn-prev:hover,
 .navigation__btn-prev:focus {
   fill: #fd5103;
 }
-
 
 .navigation__btn-prev,
 .navigation__btn-next {
@@ -185,7 +175,7 @@
   border: none;
 }
 .navigation__btn-next-icon,
-.navigation__btn-prev-icon{
+.navigation__btn-prev-icon {
   width: 8px;
   height: 13px;
 }
@@ -195,7 +185,7 @@
   align-items: center;
   gap: 8px;
   display: flex;
-  &__item{
+  &__item {
     width: 32px;
     height: 32px;
     color: #1e1e1e;
@@ -209,7 +199,7 @@
     font-weight: 400;
     line-height: 1.25;
     display: flex;
-    &-load{
+    &-load {
       color: #fe7031;
       font-family: Montserrat;
       font-size: 16px;
@@ -218,8 +208,6 @@
     }
   }
 }
-
-
 
 .active-nav {
   color: #fff;
@@ -233,22 +221,17 @@
 .btn__like:hover,
 .btn__like:focus,
 .btn__read-more:hover,
-.btn__read-more:focus{
+.btn__read-more:focus {
   box-shadow: 0 4px 4px #00000040;
 }
 
-
-
-.disabled, 
-.disabled:hover, 
+.disabled,
+.disabled:hover,
 .disabled:focus {
   fill: #5f6775;
 }
 
-
-
-
-.modal-coc-close{
+.modal-coc-close {
   position: absolute;
   right: 0;
   top: 0;
