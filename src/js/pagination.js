@@ -18,22 +18,71 @@ const queryParams = {
   fetchQuery: '',
 };
 
+let windowHeight = window.innerHeight;
+
 getRandomCocktails();
 
 window.addEventListener('resize', debounce(resizeListener, 500));
 
-async function getRandomCocktails() {
+async function getRandomCocktails(event) {
   try {
+    // if (
+    //   windowHeight !== window.innerHeight ||
+    //   windowWidth !== window.innerWidth
+    // ) {
+    //   // console.log('windowHeight', windowHeight);
+    //   // console.log('innerHeight', window.innerHeight);
+    //   return;
+    // } else if {
+
+    // console.log(
+    //   `windowHeight === event?.target?.innerHeight >>>`,
+    //   event?.target?.innerWidth < 768 &&
+    //     windowHeight === event?.target?.innerHeight
+    // );
+
+    // if (
+    //   event?.target?.innerWidth < 768 &&
+    //   windowHeight === event?.target?.innerHeight
+    // ) {
+    //   console.log(
+    //     `windowHeight === event?.target?.innerHeight`,
+    //     windowHeight === event?.target?.innerHeight
+    //   );
+    //   return;
+    // }
+
+    // if (
+    //   event?.target?.innerWidth >= 768 &&
+    //   event?.target?.innerWidth < 1200 &&
+    //   windowHeight === event?.target?.innerHeight
+    // ) {
+    //   console.log(
+    //     `windowHeight === event?.target?.innerHeight`,
+    //     windowHeight === event?.target?.innerHeight
+    //   );
+    //   return;
+    // }
+
     if (innerWidth < 768) {
+      if (cocktailsPerPage === 3) {
+        return;
+      }
       cocktailsPerPage = 3;
     } else if (innerWidth >= 768 && innerWidth < 1280) {
+      if (cocktailsPerPage === 6) {
+        return;
+      }
       cocktailsPerPage = 6;
     } else if (innerWidth >= 1280) {
+      if (cocktailsPerPage === 9) {
+        return;
+      }
       cocktailsPerPage = 9;
     }
 
     const randomCocktailsArray = [];
-
+    console.log('cocktailsPerPage', cocktailsPerPage);
     for (let i = 0; i < cocktailsPerPage; i++) {
       const response = await fetchRandomCocktail();
       randomCocktailsArray.push(...response.drinks);
@@ -43,6 +92,7 @@ async function getRandomCocktails() {
 
     showModalInfo();
     actionOnLikeBtn();
+    // }
   } catch (error) {
     console.log('Помилка у getRandomCocktails', error);
   }
@@ -57,9 +107,9 @@ async function fetchRandomCocktail() {
   }
 }
 
-function resizeListener() {
+function resizeListener(event) {
   if (queryParams.fetchQuery === '') {
-    getRandomCocktails();
+    getRandomCocktails(event);
   } else if (queryParams.fetchQuery !== '') {
     console.log('resizing viewport in pagination js');
     actionOnSearch(queryParams);
