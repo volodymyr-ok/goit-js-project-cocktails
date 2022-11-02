@@ -1,67 +1,61 @@
-.modal{
-    background-color: rgba($color: #000000, $alpha: 0.8);
-    z-index: 1;
-    position:fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0%;
-//    overflow: scroll;
+.modal {
+  background-color: rgba($color: #000000, $alpha: 0.8);
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0%;
+  //    overflow: scroll;
 }
 
-.modal-content{
-    position: absolute;
-    background-color: $white;
-    padding: 40px 20px;;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) ;
-    max-width: 310px;
-     @media screen and (min-width:715px){
-        max-width: 822px;
-    }
-       }
-       .modal-contentt{
-        // overflow: auto;
-        z-index: 1;
-        position: absolute;
-        background-color: $white;
-        padding: 40px 20px;
-    
-    
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -30%) ;
-     
-        
-    
-         @media screen and (min-width:715px){
-            max-width: 822px;
-        }
-           }
-    
-    .modal-title{
-    
-        // margin-top: 40px;
-    
-        font-weight: 900;
-        font-size: 32px;
-        line-height:1.18;
-        color: $black;
-        font-family: 'Roboto';
+.modal-content {
+  position: absolute;
+  background-color: $white;
+  padding: 40px 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 310px;
+  @media screen and (min-width: 715px) {
+    max-width: 822px;
+  }
+}
+.modal-contentt {
+  // overflow: auto;
+  z-index: 1;
+  position: absolute;
+  background-color: $white;
+  padding: 40px 20px;
 
-    }
-    
-    .modal-after-title{
-    
-        margin-top: 20px;
-    
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 1.5;
-        text-transform: uppercase;
-        color: $black;
-        font-family: 'Poppins';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+
+  @media screen and (min-width: 715px) {
+    max-width: 822px;
+  }
+}
+
+.modal-title {
+  // margin-top: 40px;
+
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 1.18;
+  color: $black;
+  font-family: 'Roboto';
+}
+
+.modal-after-title {
+  margin-top: 20px;
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: $black;
+  font-family: 'Poppins';
 
   @media screen and (min-width: 715px) {
     max-width: 800px;
@@ -81,8 +75,8 @@
   line-height: 1.7;
   color: $gray;
   max-width: 280px;
-        margin-left: auto;
-        margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 
   @media screen and (min-width: 715px) {
     margin-top: 28px;
@@ -151,11 +145,11 @@
   // }
 }
 
-.decoration-button{
-    @media screen and (min-width:715px) {
-        display: flex;
-        flex-direction: row-reverse;
-    }
+.decoration-button {
+  @media screen and (min-width: 715px) {
+    display: flex;
+    flex-direction: row-reverse;
+  }
 }
 
 .isClose {

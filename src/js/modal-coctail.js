@@ -1,65 +1,65 @@
-import { modalInteraction } from "./modal-interaction";
+import { modalInteraction } from './modal-interaction';
 
 export function showModalInfo() {
-    const btnReadMore = document.querySelectorAll('.btn__read-more');
-    btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
-  }
- 
-  export async function userOpenMOdal(event) {
-    if (event.target.id.length === 0) {
-      console.log('event.target', event.target);
-  
-      return;
-    } else {
-      let id = event.target.id;
-        console.log(id)
-      const json = await srchById(id);
-      console.log('json', json);
-  
-      let myIngidient = json.drinks[0];
-      console.log('myIngidient [0]', myIngidient);
-  
-      let myIngidientsList = [];
-      let myIngidientsRecipe = [];
-  
-      for (let ingr in myIngidient) {
-        if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
-          myIngidientsList.push(myIngidient[ingr]);
-        }
+  const btnReadMore = document.querySelectorAll('.btn__read-more');
+  btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
+}
+
+export async function userOpenMOdal(event) {
+  if (event.target.id.length === 0) {
+    console.log('event.target', event.target);
+
+    return;
+  } else {
+    let id = event.target.id;
+    console.log(id);
+    const json = await srchById(id);
+    console.log('json', json);
+
+    let myIngidient = json.drinks[0];
+    console.log('myIngidient [0]', myIngidient);
+
+    let myIngidientsList = [];
+    let myIngidientsRecipe = [];
+
+    for (let ingr in myIngidient) {
+      if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
+        myIngidientsList.push(myIngidient[ingr]);
       }
-      for (let ingr in myIngidient) {
-        if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
-          myIngidientsRecipe.push(myIngidient[ingr]);
-        }
+    }
+    for (let ingr in myIngidient) {
+      if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
+        myIngidientsRecipe.push(myIngidient[ingr]);
       }
-      console.log('myIngidientsList', myIngidientsList);
-      console.log('myIngidientsRecipe', myIngidientsRecipe);
-  
-      const local = document.querySelector('.local-storage-ingr');
-      console.log(local);
-  
-      let number = -1;
-  
-      const listItems = myIngidientsList
-        .map(el => {
-          number++;
-          return `<li class="modal-item coctal-item">✶ ${
-            myIngidientsRecipe[number] || ''
-          }
+    }
+    console.log('myIngidientsList', myIngidientsList);
+    console.log('myIngidientsRecipe', myIngidientsRecipe);
+
+    const local = document.querySelector('.local-storage-ingr');
+    console.log(local);
+
+    let number = -1;
+
+    const listItems = myIngidientsList
+      .map(el => {
+        number++;
+        return `<li class="modal-item coctal-item">✶ ${
+          myIngidientsRecipe[number] || ''
+        }
            <a href="#" class="modal-link coctal-link">${el}</a> </li>`;
-        })
-        .join('');
-  
-      createCocktailModalMarkup(listItems, myIngidient);
-  
-      modalInteraction();
-      // onpenModalIngredient();
-  
-      function createCocktailModalMarkup(
-        listItems,
-        { strDrinkThumb, strDrink, strInstructions, idDrink }
-      ) {
-        return (local.innerHTML = `<div id="modal-koktel" class="modal-coctal modal">
+      })
+      .join('');
+
+    createCocktailModalMarkup(listItems, myIngidient);
+
+    modalInteraction();
+    // onpenModalIngredient();
+
+    function createCocktailModalMarkup(
+      listItems,
+      { strDrinkThumb, strDrink, strInstructions, idDrink }
+    ) {
+      return (local.innerHTML = `<div id="modal-koktel" class="modal-coctal modal">
           <div class="modal-content container">
             <div class="first-part-decor">
               <img src="${strDrinkThumb}" alt="${strDrink}" class="img-coctal-desctop" />
@@ -92,17 +92,17 @@ export function showModalInfo() {
             </div>
           </div>
         </div>`);
-      }
     }
   }
-  
-  async function srchById(id) {
-    try {
-      console.log('перед фетчом');
-      return await fetch(
-        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
-      ).then(response => response.json());
-    } catch (error) {
-      throw new Error('Помилка при ФЕТЧІ ===> ' + error.message);
-    }
+}
+
+async function srchById(id) {
+  try {
+    console.log('перед фетчом');
+    return await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
+    ).then(response => response.json());
+  } catch (error) {
+    throw new Error('Помилка при ФЕТЧІ ===> ' + error.message);
   }
+}

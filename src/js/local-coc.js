@@ -1,11 +1,10 @@
-
-import { storage } from "./yuras"
-console.log(storage)
-import { actionOnLikeBtn } from "./yuras"
-import { reload } from "./yuras";
-import { showModalInfo } from './modal-coctail'
+import { storage } from './yuras';
+console.log(storage);
+import { actionOnLikeBtn } from './yuras';
+import { reload } from './yuras';
+import { showModalInfo } from './modal-coctail';
 // import { userOpenMOdal } from "./pagination"
-reload()
+reload();
 
 const cocList = document.querySelector('.cocktails__list');
 const emptyText = document.querySelector('.empty-text');
@@ -13,13 +12,12 @@ const emptyText = document.querySelector('.empty-text');
 // const loc = document.querySelector('.my')
 // const secondModal = document.querySelector('.second')
 
-console.log(storage)
+console.log(storage);
 let cocktailsPerPage;
-
 
 let myCoc = [];
 
-console.log( localStorage.getItem('drinksId'))
+console.log(localStorage.getItem('drinksId'));
 
 // function reload() {
 //   let userr = localStorage.getItem('drinksId');
@@ -29,19 +27,18 @@ console.log( localStorage.getItem('drinksId'))
 //   }
 // }
 
-
 getMurkupCoc();
 function getMurkupCoc() {
   if (storage.length > 0) {
     emptyText.textContent = '';
-    
-    storage.forEach(async el=>{
-      json = await searchCocById(el)
+
+    storage.forEach(async el => {
+      json = await searchCocById(el);
       let result = json.drinks[0];
-      myCoc.push(result)
-      mark()
-    })
-    
+      myCoc.push(result);
+      mark();
+    });
+
     // storage.map(async el => {
     //   json = await searchCocById(el);
     //   // console.log(json)
@@ -49,41 +46,32 @@ function getMurkupCoc() {
     //   // console.log(result)
     //   myCoc.push(result);
     //   console.log(result)
-     
-    // });
 
+    // });
   } else {
     cocList.innerHTML = '';
     emptyText.innerHTML = ` You haven't added any <br />favorite cocktails yet`;
   }
 }
 
+function mark() {
+  let shownCocktails;
 
-
- function mark (){
-  let shownCocktails
-  
   if (innerWidth < 768) {
-  cocktailsPerPage = 3;
-} else if (innerWidth >= 768 && innerWidth < 1280) {
-  cocktailsPerPage = 6;
-} else if (innerWidth >= 1280) {
-  cocktailsPerPage = 9;
+    cocktailsPerPage = 3;
+  } else if (innerWidth >= 768 && innerWidth < 1280) {
+    cocktailsPerPage = 6;
+  } else if (innerWidth >= 1280) {
+    cocktailsPerPage = 9;
+  }
+
+  shownCocktails = myCoc.slice(0, cocktailsPerPage);
+  cocList.innerHTML = shownCocktails.map(letMarkupMyCoc).join('');
+  console.log('dsfg');
+
+  actionOnLikeBtn();
+  showModalInfo();
 }
-
-shownCocktails = myCoc.slice(0, cocktailsPerPage);
-cocList.innerHTML = shownCocktails.map(letMarkupMyCoc).join('');
-console.log('dsfg')
-
-
- actionOnLikeBtn()
- showModalInfo()
- 
-}
-
-
-
-
 
 async function searchCocById(el) {
   try {
@@ -115,4 +103,3 @@ function letMarkupMyCoc(el) {
     </li>
     `;
 }
-
