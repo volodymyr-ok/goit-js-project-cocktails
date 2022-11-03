@@ -92,3 +92,11 @@ export function pageNumListeners(
     });
   }
 }
+export function removeActiveLeter() {
+  const curLetter = document.querySelectorAll('.letter-item');
+  curLetter.forEach(letter => {
+    if (letter.classList.contains('current-letter')) {
+      letter.classList.remove('current-letter');
+    }
+  });
+}

@@ -7,6 +7,7 @@ import {
   createMarkup,
   createArrows,
   pageNumListeners,
+  removeActiveLeter,
 } from './vars';
 
 const {
@@ -21,12 +22,12 @@ const {
   htmlNumBar,
 } = refs;
 
-let cocktailsPerPage;
-let numsQuantity = 0;
 const queryParams = {
   searchMethod: '',
   fetchQuery: '',
 };
+let cocktailsPerPage;
+let numsQuantity = 0;
 
 getRandomCocktails();
 window.addEventListener('resize', debounce(resizeListener, 500));
@@ -93,15 +94,6 @@ function resizeListener(event) {
     actionOnSearch(queryParams);
   }
 }
-function removeActiveLeter() {
-  const curLetter = document.querySelectorAll('.letter-item');
-
-  curLetter.forEach(letter => {
-    if (letter.classList.contains('current-letter')) {
-      letter.classList.remove('current-letter');
-    }
-  });
-}
 function actionOnForm(event) {
   event.preventDefault();
   removeActiveLeter();
@@ -160,15 +152,13 @@ async function actionOnSearch(queryParams) {
     cocktailList.innerHTML = shownCocktailsArray.map(createMarkup).join('');
 
     if (responseArray.length > shownCocktailsArray.length) {
-      numsQuantity = Math.ceil(responseArray.length / cocktailsPerPage);
-
       const arrayOfPageNumbers = [];
+      numsQuantity = Math.ceil(responseArray.length / cocktailsPerPage);
       for (let numberOfPage = 1; numberOfPage <= numsQuantity; numberOfPage++) {
         arrayOfPageNumbers.push(
           `<button class="pages__link" type='button'>${numberOfPage}</button>`
         );
       }
-
       htmlNumBar.innerHTML = `
       <li class="navigation__item pages">${arrayOfPageNumbers.join('')}</li>`;
 
@@ -178,7 +168,6 @@ async function actionOnSearch(queryParams) {
         responseArray,
         cocktailList
       );
-
       createArrows(htmlNumBar);
     }
     showModalInfo();
@@ -203,3 +192,14 @@ async function actionOnSearch(queryParams) {
 //   return Array.from({ length: max }, (_, i) => i + 1 + from);
 // };
 // console.log(pageNumbers(9, 5, 9));
+
+// function PaginationButtons(numsQuantity, maxVisNums = 5, currentPage = 1) {
+//   let pages = pageNumbers(numsQuantity, maxVisNums, currentPage);
+//   let currentPageBtn = null;
+
+//   document.createElement();
+
+//   this.render = (container = document.body) => {};
+// }
+
+// const paginationButtons = new PaginationButtons(100);
