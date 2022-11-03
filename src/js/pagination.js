@@ -1,14 +1,13 @@
 import debounce from 'lodash.debounce';
 import { actionOnLikeBtn } from './yuras';
 import { showModalInfo } from './modal-coctail';
-import { refs } from './vars';
-import { fetchBySrch } from './vars';
-import { createMarkup } from './vars';
-import { createArrows } from './vars';
-import { pageNumListeners } from './vars';
-// import { onpenModalIngredient } from './yuras-m';
-// import { storage } from './yuras';
-// import { onpenModalIngredient } from './yuras-m';
+import {
+  refs,
+  fetchBySrch,
+  createMarkup,
+  createArrows,
+  pageNumListeners,
+} from './vars';
 
 const {
   cocktailList,
