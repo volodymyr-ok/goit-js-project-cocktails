@@ -21,13 +21,7 @@ export function modalInteraction() {
     body.classList.remove('no-scroll');
   }
 
-  btnAdd.addEventListener('click', use);
-  function use(event) {
-    console.log('event.target >>>', event.target);
-    console.log('event.target.id >>>', event.target.id);
-    if (event.target.id.length === 0) {
-      return;
-    }
+
     
     const btnLike = document.querySelectorAll('.btn__like');
 
@@ -35,14 +29,13 @@ export function modalInteraction() {
 
     btnAdd.addEventListener('click', use);
     function use(event) {
-      console.log('event.target >>>', event.target);
-      console.log('event.target.id >>>', event.target.id);
+
       if (event.target.id.length === 0) {
         return;
       }
       if (!storage.includes(event.target.id)) {
         storage.push(event.target.id);
-        // event.path[0].lastElementChild.classList.add('active-like-btn');
+      
         event.path[0].firstChild.textContent = 'Remove from favorite';
         btnLike.forEach(el=>{
           if(el.id===event.target.id){
@@ -52,7 +45,7 @@ export function modalInteraction() {
         })
       } else {
         storage.splice(storage.indexOf(event.target.id), 1);
-        // event.path[0].lastElementChild.classList.remove('active-like-btn');
+      
         event.path[0].firstChild.textContent = 'Add to favorite';
         btnLike.forEach(el=>{
           if(el.id===event.target.id){
@@ -60,11 +53,11 @@ export function modalInteraction() {
             el.firstChild.textContent = 'Add to';
           }
         })
-        // event.path[0].lastElementChild.classList.remove('active-like-btn');
+       
 
       }
-      localStorage.setItem('drinksId', storage);
+      // localStorage.setItem('drinksId', storage);
     }
-    localStorage.setItem('drinksId', storage);
-  }
+    // localStorage.setItem('drinksId', storage);
+
 }
