@@ -167,6 +167,8 @@ async function actionOnSearch(queryParams) {
         if (event.target === event.currentTarget) {
           return;
         }
+        showModalInfo();
+        actionOnLikeBtn();
         console.log(+event.target.textContent);
       });
 
@@ -186,7 +188,6 @@ async function actionOnSearch(queryParams) {
         responseArray,
         cocktailsPerPage,
         pageNumButtons,
-        // numsQuantity,
         cocktailList
       );
     }
