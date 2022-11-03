@@ -1,4 +1,5 @@
 import './js/mob.menu.js';
+import './js/select.menu.js';
 import './js/pagination.js';
 import './js/yuras.js';
 import './js/yuras-m.js';
