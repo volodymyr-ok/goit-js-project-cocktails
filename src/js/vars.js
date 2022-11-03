@@ -1,3 +1,6 @@
+import { actionOnLikeBtn } from './yuras';
+import { showModalInfo } from './modal-coctail';
+
 export const refs = {
   cocktailList: document.querySelector('.cocktails__list'),
   srchInput: document.querySelector('.input-tablet'),
@@ -75,7 +78,6 @@ export function pageNumListeners(
     pageNumButton.addEventListener('click', event => {
       pageNumButtons.forEach(num => num.classList.remove('active-nav'));
       event.target.classList.add('active-nav');
-      //   counter = pageNumButton.textContent;
 
       shownCocktailsArray = responseArray.slice(pageStart, pageEnd);
       cocktailList.innerHTML = shownCocktailsArray.map(createMarkup).join('');
@@ -129,7 +131,6 @@ export function arrowPagination(
   responseArray,
   cocktailsPerPage,
   pageNumButtons,
-  //   numsQuantity,
   cocktailList
 ) {
   const prevPageBtn = document.querySelector('.navigation__btn-prev');
@@ -163,6 +164,8 @@ export function arrowPagination(
         btn.classList.add('active-nav');
       }
     });
+    showModalInfo();
+    actionOnLikeBtn();
   });
 
   nextPageBtn.addEventListener('click', event => {
@@ -186,5 +189,7 @@ export function arrowPagination(
     if (currentPage === numsQuantity) {
       nextPageBtn.disabled = true;
     }
+    showModalInfo();
+    actionOnLikeBtn();
   });
 }
