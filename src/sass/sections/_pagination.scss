@@ -3,6 +3,50 @@
 // }
 
 .pages__link {
+  width: 32px;
+  height: 32px;
   background-color: transparent;
-  border: none;
+  border: 1px solid $orange;
+  border-radius: 50%;
+
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.pages__link:hover,
+.pages__link:focus {
+  background-color: $orange;
+  color: $white;
+  cursor: pointer;
+}
+.navigation__btn-prev {
+  margin-right: 8px;
+}
+.navigation__btn-next {
+  margin-left: 8px;
+}
+
+#icon-nav-prev {
+  fill: $black;
+}
+
+.navigation__btn-prev:active #icon-nav-prev,
+.navigation__btn-next:active #icon-nav-next {
+  fill: $orange;
+}
+
+.navigation__btn-prev:hover,
+.navigation__btn-prev:focus,
+.navigation__btn-next:hover,
+.navigation__btn-next:focus {
+  cursor: pointer;
+}
+
+.navigation__btn-next:disabled {
+  fill: $gray;
+}
+
+.active-nav {
+  color: $white;
+  background-color: $orange;
 }
