@@ -8,6 +8,8 @@ import {
   createArrows,
   pageNumListeners,
   removeActiveLeter,
+  arrowPagination,
+  createNumBar,
 } from './vars';
 
 const {
@@ -19,6 +21,7 @@ const {
   randomCocktailURL,
   searchByFilterURL,
   title,
+  emptySearchResult,
   htmlNumBar,
 } = refs;
 
@@ -33,7 +36,7 @@ getRandomCocktails();
 window.addEventListener('resize', debounce(resizeListener, 500));
 mobInput.addEventListener('submit', actionOnForm);
 srchInput.addEventListener('submit', actionOnForm);
-abcSelect.addEventListener('change', abcSelectAction);
+abcSelect.addEventListener('click', abcSelectAction);
 abcList.addEventListener('click', abcListAction);
 
 async function getRandomCocktails(event) {
@@ -90,7 +93,6 @@ function resizeListener(event) {
     } else if (innerWidth >= 1280 && cocktailsPerPage === 9) {
       return;
     }
-    console.log('resizing viewport in pagination js');
     actionOnSearch(queryParams);
   }
 }
@@ -107,7 +109,7 @@ function abcSelectAction(event) {
   removeActiveLeter();
 
   queryParams.searchMethod = 'f';
-  queryParams.fetchQuery = event.target.value;
+  queryParams.fetchQuery = event.target.textContent;
 
   actionOnSearch(queryParams);
 }
@@ -126,6 +128,7 @@ function abcListAction(event) {
 }
 async function actionOnSearch(queryParams) {
   try {
+    emptySearchResult.classList.add('is-hidden');
     const { searchMethod, fetchQuery } = queryParams;
     let shownCocktailsArray;
     htmlNumBar.innerHTML = '';
@@ -135,6 +138,7 @@ async function actionOnSearch(queryParams) {
 
     if (responseArray === null) {
       title.textContent = `Sorry, we didn't find any cocktail for you`;
+      emptySearchResult.classList.remove('is-hidden');
       return;
     } else {
       title.textContent = 'Search results';
@@ -152,23 +156,39 @@ async function actionOnSearch(queryParams) {
     cocktailList.innerHTML = shownCocktailsArray.map(createMarkup).join('');
 
     if (responseArray.length > shownCocktailsArray.length) {
-      const arrayOfPageNumbers = [];
-      numsQuantity = Math.ceil(responseArray.length / cocktailsPerPage);
-      for (let numberOfPage = 1; numberOfPage <= numsQuantity; numberOfPage++) {
-        arrayOfPageNumbers.push(
-          `<button class="pages__link" type='button'>${numberOfPage}</button>`
-        );
-      }
-      htmlNumBar.innerHTML = `
-      <li class="navigation__item pages">${arrayOfPageNumbers.join('')}</li>`;
+      let counter = 1;
+      createNumBar(numsQuantity, htmlNumBar, responseArray, cocktailsPerPage);
+
+      const pageNumButtons = document.querySelectorAll('.pages__link');
+      pageNumButtons[0].classList.add('active-nav');
+      const navigationNums = document.querySelector('.pages');
+
+      navigationNums.addEventListener('click', event => {
+        if (event.target === event.currentTarget) {
+          return;
+        }
+        console.log(+event.target.textContent);
+      });
 
       pageNumListeners(
         cocktailsPerPage,
         shownCocktailsArray,
         responseArray,
+        cocktailList,
+        pageNumButtons,
+        counter
+      );
+
+      console.log(counter);
+      createArrows(htmlNumBar);
+      arrowPagination(
+        counter,
+        responseArray,
+        cocktailsPerPage,
+        pageNumButtons,
+        // numsQuantity,
         cocktailList
       );
-      createArrows(htmlNumBar);
     }
     showModalInfo();
     actionOnLikeBtn();
@@ -176,30 +196,3 @@ async function actionOnSearch(queryParams) {
     console.log('Помилка в actionOnSearch ===> ', error);
   }
 }
-
-// const pageNumbers = (total, max, current) => {
-//   const half = Math.round(max / 2);
-//   let to = max;
-
-//   if (current + half >= total) {
-//     to = total;
-//   } else if (current > half) {
-//     ro = current + half;
-//   }
-
-//   let from = to - max;
-
-//   return Array.from({ length: max }, (_, i) => i + 1 + from);
-// };
-// console.log(pageNumbers(9, 5, 9));
-
-// function PaginationButtons(numsQuantity, maxVisNums = 5, currentPage = 1) {
-//   let pages = pageNumbers(numsQuantity, maxVisNums, currentPage);
-//   let currentPageBtn = null;
-
-//   document.createElement();
-
-//   this.render = (container = document.body) => {};
-// }
-
-// const paginationButtons = new PaginationButtons(100);
