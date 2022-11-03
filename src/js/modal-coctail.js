@@ -1,39 +1,46 @@
-import { modalInteraction } from './modal-interaction';
+import { modalInteraction } from "./modal-interaction";
+import { checkLocalStorage } from "./check-local-storage";
 
 export function showModalInfo() {
-  const btnReadMore = document.querySelectorAll('.btn__read-more');
-  btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
-}
+    const btnReadMore = document.querySelectorAll('.btn__read-more');
+    btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
+  }
+ 
+  export async function userOpenMOdal(event) {
+    if (event.target.id.length === 0) {
+      console.log('event.target', event.target);
+  
+      return;
+    } else {
+       let id = event.target.id;
+        
+      const json = await srchById(id);
+      // console.log('json', json);
+      // console.log('json------------',json)
+      let myIngidient = json.drinks[0];
+      // console.log('myIngidient [0] --------------', myIngidient);
+      
+      let myIngidientsList = [];
+      let myIngidientsRecipe = [];
 
-export async function userOpenMOdal(event) {
-  if (event.target.id.length === 0) {
-    console.log('event.target', event.target);
+        let localStorageBtn = checkLocalStorage(id)
+      
 
-    return;
-  } else {
-    let id = event.target.id;
-    console.log(id);
-    const json = await srchById(id);
-    console.log('json', json);
-
-    let myIngidient = json.drinks[0];
-    console.log('myIngidient [0]', myIngidient);
-
-    let myIngidientsList = [];
-    let myIngidientsRecipe = [];
-
-    for (let ingr in myIngidient) {
-      if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
-        myIngidientsList.push(myIngidient[ingr]);
+      for (let ingr in myIngidient) {
+        if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
+          myIngidientsList.push(myIngidient[ingr]);
+        }
       }
-    }
-    for (let ingr in myIngidient) {
-      if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
-        myIngidientsRecipe.push(myIngidient[ingr]);
+      for (let ingr in myIngidient) {
+        if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
+          myIngidientsRecipe.push(myIngidient[ingr]);
+        }
       }
-    }
-    console.log('myIngidientsList', myIngidientsList);
-    console.log('myIngidientsRecipe', myIngidientsRecipe);
+
+    
+   
+    // console.log('myIngidientsList', myIngidientsList);
+    // console.log('myIngidientsRecipe', myIngidientsRecipe);
 
     const local = document.querySelector('.local-storage-ingr');
     console.log(local);
@@ -47,19 +54,16 @@ export async function userOpenMOdal(event) {
           myIngidientsRecipe[number] || ''
         }
            <a href="#" class="modal-link coctal-link">${el}</a> </li>`;
-      })
-      .join('');
-
-    createCocktailModalMarkup(listItems, myIngidient);
-
-    modalInteraction();
-    // onpenModalIngredient();
-
-    function createCocktailModalMarkup(
-      listItems,
-      { strDrinkThumb, strDrink, strInstructions, idDrink }
-    ) {
-      return (local.innerHTML = `<div id="modal-koktel" class="modal-coctal modal">
+        })
+        .join('');
+  
+      createCocktailModalMarkup(localStorageBtn, listItems, myIngidient);
+  
+      modalInteraction();
+      // onpenModalIngredient();
+ 
+      function createCocktailModalMarkup(localStorageBtn, listItems, { strDrinkThumb, strDrink, strInstructions, idDrink }) {
+        return (local.innerHTML = `<div id="modal-koktel" class="modal-coctal modal">
           <div class="modal-content container">
             <div class="first-part-decor">
               <img src="${strDrinkThumb}" alt="${strDrink}" class="img-coctal-desctop" />
@@ -88,7 +92,7 @@ export async function userOpenMOdal(event) {
               </ul>
             </div>
             <div class="decoration-button">
-              <button id="${idDrink}" class="button-test">Add to favorite</button>
+              ${localStorageBtn}
             </div>
           </div>
         </div>`);

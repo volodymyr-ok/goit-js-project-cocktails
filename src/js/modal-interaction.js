@@ -1,5 +1,6 @@
 import { onpenModalIngredient } from './yuras-m';
 import { storage } from './yuras';
+
 export function modalInteraction() {
   onpenModalIngredient();
   // window.addEventListener('scroll', (e) => {
@@ -20,22 +21,43 @@ export function modalInteraction() {
     body.classList.remove('no-scroll');
   }
 
-  btnAdd.addEventListener('click', use);
-  function use(event) {
-    console.log('event.target >>>', event.target);
-    console.log('event.target.id >>>', event.target.id);
-    if (event.target.id.length === 0) {
-      return;
+
+    
+    const btnLike = document.querySelectorAll('.btn__like');
+
+    
+
+    btnAdd.addEventListener('click', use);
+    function use(event) {
+
+      if (event.target.id.length === 0) {
+        return;
+      }
+      if (!storage.includes(event.target.id)) {
+        storage.push(event.target.id);
+      
+        event.path[0].firstChild.textContent = 'Remove from favorite';
+        btnLike.forEach(el=>{
+          if(el.id===event.target.id){
+            el.lastElementChild.classList.add('active-like-btn');
+            el.firstChild.textContent = 'Remove';
+          }
+        })
+      } else {
+        storage.splice(storage.indexOf(event.target.id), 1);
+      
+        event.path[0].firstChild.textContent = 'Add to favorite';
+        btnLike.forEach(el=>{
+          if(el.id===event.target.id){
+            el.lastElementChild.classList.remove('active-like-btn');
+            el.firstChild.textContent = 'Add to';
+          }
+        })
+       
+
+      }
+      // localStorage.setItem('drinksId', storage);
     }
-    if (!storage.includes(event.target.id)) {
-      storage.push(event.target.id);
-      // event.path[0].lastElementChild.classList.add('active-like-btn');
-      event.path[0].firstChild.textContent = 'Remove from favorite';
-    } else {
-      storage.splice(storage.indexOf(event.target.id), 1);
-      // event.path[0].lastElementChild.classList.remove('active-like-btn');
-      event.path[0].firstChild.textContent = 'Add to favorite';
-    }
-    localStorage.setItem('drinksId', storage);
-  }
+    // localStorage.setItem('drinksId', storage);
+
 }
