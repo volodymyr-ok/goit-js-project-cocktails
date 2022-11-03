@@ -19,6 +19,7 @@ export function actionOnLikeBtn() {
       storage.splice(storage.indexOf(event.target.id), 1);
       event.path[0].lastElementChild.classList.remove('active-like-btn');
       event.path[0].firstChild.textContent = 'Add to';
+     
     }
     localStorage.setItem('drinksId', storage);
   }

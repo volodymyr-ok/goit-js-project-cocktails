@@ -1,16 +1,15 @@
-import { storage } from './yuras';
-console.log(storage);
-import { actionOnLikeBtn } from './yuras';
-import { reload } from './yuras';
-import { showModalInfo } from './modal-coctail';
-// import { userOpenMOdal } from "./pagination"
-reload();
+
+import { storage } from "./yuras"
+console.log(storage)
+import { actionOnLikeBtn } from "./yuras"
+import { reload } from "./yuras";
+import { showModalInfo } from './modal-coctail'
+
+reload()
 
 const cocList = document.querySelector('.cocktails__list');
 const emptyText = document.querySelector('.empty-text');
-// const local = document.querySelector('.for-modal-coc')
-// const loc = document.querySelector('.my')
-// const secondModal = document.querySelector('.second')
+
 
 console.log(storage);
 let cocktailsPerPage;
@@ -19,33 +18,23 @@ let myCoc = [];
 
 console.log(localStorage.getItem('drinksId'));
 
-// function reload() {
-//   let userr = localStorage.getItem('drinksId');
-//   if (userr) {
-//     let ara = userr.split(',');
-//     ara.forEach(el => storage.push(el));
-//   }
-// }
+
 
 getMurkupCoc();
+
 function getMurkupCoc() {
+
   if (storage.length > 0) {
     emptyText.textContent = '';
-
-    storage.forEach(async el => {
-      json = await searchCocById(el);
+    
+    storage.forEach(async el=>{
+      let json = await searchCocById(el)
       let result = json.drinks[0];
-      myCoc.push(result);
-      mark();
-    });
+      myCoc.push(result)
+      mark()
+    })
+    
 
-    // storage.map(async el => {
-    //   json = await searchCocById(el);
-    //   // console.log(json)
-    //   let result = json.drinks[0];
-    //   // console.log(result)
-    //   myCoc.push(result);
-    //   console.log(result)
 
     // });
   } else {
