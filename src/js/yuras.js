@@ -1,11 +1,13 @@
 export const storage = [];
+// reload();
 
 export function actionOnLikeBtn() {
-  reload();
-
   const btnLike = document.querySelectorAll('.btn__like');
+
   btnLike.forEach(el => el.addEventListener('click', userChoise));
+
   function userChoise(event) {
+    console.log(event);
     if (event.target.id.length === 0) {
       return;
     }
@@ -22,11 +24,11 @@ export function actionOnLikeBtn() {
   }
 }
 
-function reload() {
+export function reload() {
   let user = localStorage.getItem('drinksId');
   if (user) {
     let ara = user.split(',');
     ara.forEach(el => storage.push(el));
   }
 }
-console.log(storage)
+console.log(storage);

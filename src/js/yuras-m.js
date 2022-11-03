@@ -163,7 +163,7 @@ export function onpenModalIngredient() {
 
 function markupModalIngr(resultIngr) {
   return (markupModalIng.innerHTML = `<div id="modal" class="modall">
-    <div class="modal-content container">
+    <div class="modal-contentt container">
       <h2 class="modal-title">${resultIngr.strIngredient}</h2>
       <h3 class="modal-after-title">${resultIngr.strType}</h3>
       <p class="modal-text">
