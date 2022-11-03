@@ -1,18 +1,15 @@
-// import { onpenModalIngredient } from './yuras-m';
-// import { storage } from './yuras';
-// import { onpenModalIngredient } from './yuras-m';
-
 export const refs = {
   cocktailList: document.querySelector('.cocktails__list'),
   srchInput: document.querySelector('.input-tablet'),
   mobInput: document.querySelector('.input-mobile'),
-  abcSelect: document.querySelector('#letters'),
+  abcSelect: document.querySelector('.select-menu'),
   abcList: document.querySelector('.letters-list'),
   randomCocktailURL: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
   searchByFilterURL: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?',
   title: document.querySelector('.cocktails__title'),
+  emptySearchResult: document.querySelector('.sorry-image'),
   htmlNumBar: document.querySelector('.navigation'),
-  pageNums: document.querySelectorAll('.pages__link'),
+  //   pageNums: document.querySelectorAll('.pages__link'),
 };
 
 export function fetchBySrch(URL, filter, entrie) {

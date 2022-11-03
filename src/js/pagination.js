@@ -19,6 +19,7 @@ const {
   randomCocktailURL,
   searchByFilterURL,
   title,
+  emptySearchResult,
   htmlNumBar,
 } = refs;
 
@@ -33,7 +34,7 @@ getRandomCocktails();
 window.addEventListener('resize', debounce(resizeListener, 500));
 mobInput.addEventListener('submit', actionOnForm);
 srchInput.addEventListener('submit', actionOnForm);
-abcSelect.addEventListener('change', abcSelectAction);
+abcSelect.addEventListener('click', abcSelectAction);
 abcList.addEventListener('click', abcListAction);
 
 async function getRandomCocktails(event) {
@@ -107,7 +108,7 @@ function abcSelectAction(event) {
   removeActiveLeter();
 
   queryParams.searchMethod = 'f';
-  queryParams.fetchQuery = event.target.value;
+  queryParams.fetchQuery = event.target.textContent;
 
   actionOnSearch(queryParams);
 }
@@ -126,6 +127,7 @@ function abcListAction(event) {
 }
 async function actionOnSearch(queryParams) {
   try {
+    emptySearchResult.classList.add('is-hidden');
     const { searchMethod, fetchQuery } = queryParams;
     let shownCocktailsArray;
     htmlNumBar.innerHTML = '';
@@ -135,6 +137,7 @@ async function actionOnSearch(queryParams) {
 
     if (responseArray === null) {
       title.textContent = `Sorry, we didn't find any cocktail for you`;
+      emptySearchResult.classList.remove('is-hidden');
       return;
     } else {
       title.textContent = 'Search results';

@@ -88,6 +88,8 @@
 }
 
 .select {
+  user-select: none;
+
   position: relative;
   width: 93px;
   height: 34px;
@@ -150,6 +152,8 @@
 
 /*============================LETTERS SEARCH TABLET AND DESKTOP=================================*/
 .letters-list {
+  user-select: none;
+
   display: none;
   @include tablet {
     width: 330px;
