@@ -2,6 +2,10 @@ import debounce from 'lodash.debounce';
 import { actionOnLikeBtn } from './yuras';
 import { showModalInfo } from './modal-coctail';
 import { refs } from './vars';
+import { fetchBySrch } from './vars';
+import { createMarkup } from './vars';
+import { createArrows } from './vars';
+import { pageNumListeners } from './vars';
 // import { onpenModalIngredient } from './yuras-m';
 // import { storage } from './yuras';
 // import { onpenModalIngredient } from './yuras-m';
@@ -14,9 +18,10 @@ const {
   abcList,
   randomCocktailURL,
   searchByFilterURL,
-  htmlNumBar,
   title,
+  htmlNumBar,
 } = refs;
+
 let cocktailsPerPage;
 let numsQuantity = 0;
 const queryParams = {
@@ -130,12 +135,12 @@ function abcListAction(event) {
 }
 async function actionOnSearch(queryParams) {
   try {
-    htmlNumBar.forEach(el => (el.innerHTML = ''));
     const { searchMethod, fetchQuery } = queryParams;
-    const json = await fetchBySrch(searchMethod, fetchQuery);
-    cocktailList.innerHTML = '';
-    const responseArray = json.drinks;
     let shownCocktailsArray;
+    htmlNumBar.innerHTML = '';
+    cocktailList.innerHTML = '';
+    const json = await fetchBySrch(searchByFilterURL, searchMethod, fetchQuery);
+    const responseArray = json.drinks;
 
     if (responseArray === null) {
       title.textContent = `Sorry, we didn't find any cocktail for you`;
@@ -163,39 +168,19 @@ async function actionOnSearch(queryParams) {
         arrayOfPageNumbers.push(
           `<button class="pages__link" type='button'>${numberOfPage}</button>`
         );
-        // createNums(numberOfPage);
       }
 
-      // function createNums(num) {
-      //   return arrayOfPageNumbers.push(`
-      // <button class="pages__link" type='button'>${num}</button>
-      // `);
-      // }
+      htmlNumBar.innerHTML = `
+      <li class="navigation__item pages">${arrayOfPageNumbers.join('')}</li>`;
 
-      const numBarBelowPage = document.querySelector('.pages');
-      numBarBelowPage.insertAdjacentHTML(
-        'beforeend',
-        arrayOfPageNumbers.join('')
+      pageNumListeners(
+        cocktailsPerPage,
+        shownCocktailsArray,
+        responseArray,
+        cocktailList
       );
 
-      const pageNums = document.querySelectorAll('.pages__link');
-      for (let pageNum of pageNums) {
-        const numOfPage = pageNum.textContent;
-        const pageStart = (numOfPage - 1) * cocktailsPerPage;
-        const pageEnd = pageStart + cocktailsPerPage;
-
-        pageNum.addEventListener('click', addTemplateToMarkup);
-
-        function addTemplateToMarkup() {
-          shownCocktailsArray = responseArray.slice(pageStart, pageEnd);
-
-          return (cocktailList.innerHTML = shownCocktailsArray
-            .map(createMarkup)
-            .join(''));
-        }
-      }
-
-      createArrows();
+      createArrows(htmlNumBar);
     }
     showModalInfo();
     actionOnLikeBtn();
@@ -204,83 +189,18 @@ async function actionOnSearch(queryParams) {
   }
 }
 
-function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
-  return `
-<li class="coctails__item">
-  <img src="${strDrinkThumb}" alt="${strDrink}" width="280" height="280" />
-  <h2 class="cocktails__item-title">${strDrink}</h2>
-  <div class="coctails__btns">
-    <button class="btn__read-more" type="button" id="${idDrink}">
-      Learn more
-    </button>
-    <button id='${idDrink}' class="btn__like" type="button">
-      Add to
-      <svg class="btn__like-icon"><use xlink:href="#icon-Heart"><symbol id="icon-Heart" viewBox="0 0 35 32">
-      <path fill="#fd5103" style="fill: var(--color1, #fd5103)" d="M17.684 32l-2.564-2.302c-9.107-8.144-15.12-13.515-15.12-20.107 0-5.371 4.28-9.591 9.726-9.591 3.077 0 6.030 1.413 7.958 3.645 1.928-2.232 4.881-3.645 7.958-3.645 5.447 0 9.726 4.22 9.726 9.591 0 6.592-6.013 11.963-15.12 20.124l-2.564 2.284z"></path>
-      <path  d="M17.684 28.632l-2.076-1.817c-7.373-6.429-12.24-10.67-12.24-15.874 0-4.24 3.464-7.572 7.874-7.572 2.491 0 4.882 1.115 6.442 2.877 1.56-1.762 3.951-2.877 6.442-2.877 4.409 0 7.874 3.332 7.874 7.572 0 5.204-4.867 9.444-12.24 15.888l-2.076 1.803z"></path>
-      </symbol></use></svg>
-    </button>
-  </div>
-</li>
-`;
-}
+// const pageNumbers = (total, max, current) => {
+//   const half = Math.round(max / 2);
+//   let to = max;
 
-function createArrows() {
-  const pageNav = document.querySelector('.navigation');
-  const prevArrow = `
-      <li class="navigation__item">
-        <button class="navigation__btn-prev disabled" type="button">
-          <svg class="navigation__btn-prev-icon">
-            <use xlink:href="#icon-nav-prev">
-            <symbol id="icon-nav-prev" viewBox="0 0 21 32">
-              <path d="M16.533 0l-16 16 16 16 3.76-3.76-12.213-12.24 12.213-12.24z"></path>
-            </symbol>
-            </use>
-          </svg>
-        </button>
-      </li>
-    `;
-  const lastArrow = `
-      <li class="navigation__item">
-      <button class="navigation__btn-next" type="button">
-        <svg class="navigation__btn-next-icon">
-          <use xlink:href="#icon-nav-next">
-          <symbol id="icon-nav-next" viewBox="0 0 21 32">
-            <path d="M5.387 32l16-16-16-16-3.76 3.76 12.213 12.24-12.213 12.24z"></path>
-          </symbol>
-          </use>
-        </svg>
-      </button>
-    </li>
-      `;
+//   if (current + half >= total) {
+//     to = total;
+//   } else if (current > half) {
+//     ro = current + half;
+//   }
 
-  pageNav.insertAdjacentHTML('afterbegin', prevArrow);
-  pageNav.insertAdjacentHTML('beforeend', lastArrow);
-}
+//   let from = to - max;
 
-async function fetchBySrch(filter, entrie) {
-  try {
-    return await fetch(`${searchByFilterURL}${filter}=${entrie}`).then(
-      response => response.json()
-    );
-  } catch (error) {
-    console.log('Помилка при ФЕТЧІ ===> ', error);
-  }
-}
-
-const pageNumbers = (total, max, current) => {
-  const half = Math.round(max / 2);
-  let to = max;
-
-  if (current + half >= total) {
-    to = total;
-  } else if (current > half) {
-    ro = current + half;
-  }
-
-  let from = to - max;
-
-  return Array.from({ length: max }, (_, i) => i + 1 + from);
-};
-
-console.log(pageNumbers(9, 5, 9));
+//   return Array.from({ length: max }, (_, i) => i + 1 + from);
+// };
+// console.log(pageNumbers(9, 5, 9));
