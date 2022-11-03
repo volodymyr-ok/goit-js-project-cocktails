@@ -1,7 +1,3 @@
-// import { onpenModalIngredient } from './yuras-m';
-// import { storage } from './yuras';
-// import { onpenModalIngredient } from './yuras-m';
-
 export const refs = {
   cocktailList: document.querySelector('.cocktails__list'),
   srchInput: document.querySelector('.input-tablet'),
