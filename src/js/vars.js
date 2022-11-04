@@ -138,7 +138,7 @@ export function arrowPagination(
   // console.log('currentPage', currentPage);
 
   prevPageBtn.addEventListener('click', () => {
-    console.log('numsQuantity', numsQuantity);
+    // console.log('numsQuantity', numsQuantity);
     if (currentPage <= 1) {
       return;
     }
