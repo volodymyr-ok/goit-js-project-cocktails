@@ -7,7 +7,7 @@ export function actionOnLikeBtn() {
   btnLike.forEach(el => el.addEventListener('click', userChoise));
 
   function userChoise(event) {
-    console.log(event);
+    // console.log(event);
     if (event.target.id.length === 0) {
       return;
     }
@@ -31,4 +31,4 @@ export function reload() {
     ara.forEach(el => storage.push(el));
   }
 }
-console.log(storage);
+// console.log(storage);

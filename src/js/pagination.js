@@ -169,7 +169,6 @@ async function actionOnSearch(queryParams) {
         }
         showModalInfo();
         actionOnLikeBtn();
-        // console.log(+event.target.textContent);
       });
 
       pageNumListeners(

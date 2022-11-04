@@ -1,12 +1,8 @@
-
-
-
-import { storage } from "./yuras"
-console.log(storage)
-import { actionOnLikeBtn } from "./yuras"
-import { reload } from "./yuras";
-import { showModalInfo } from './modal-coctail'
-
+import { storage } from './yuras';
+// console.log(storage);
+import { actionOnLikeBtn } from './yuras';
+import { reload } from './yuras';
+import { showModalInfo } from './modal-coctail';
 
 const openBtn = document.querySelector('.menu-open');
 const menu = document.querySelector('.menu-burger');
@@ -19,7 +15,7 @@ const arrowIcon = document.querySelector('.arrow-icon');
 
 openBtn.addEventListener('click', () => {
   menu.classList.remove('is-hidden');
-  console.log('click');
+  // console.log('click');
 });
 closeBtn.addEventListener('click', () => {
   menu.classList.add('is-hidden');
@@ -46,37 +42,30 @@ favoriteMenuDesk.addEventListener('mouseout', () => {
   }, 3000);
 });
 
-
-reload()
+reload();
 
 const cocList = document.querySelector('.cocktails__list');
 const emptyText = document.querySelector('.empty-text');
 
-
-console.log(storage);
+// console.log(storage);
 let cocktailsPerPage;
 
 let myCoc = [];
 
-console.log(localStorage.getItem('drinksId'));
-
-
+// console.log(localStorage.getItem('drinksId'));
 
 getMurkupCoc();
 
 function getMurkupCoc() {
-
   if (storage.length > 0) {
     emptyText.textContent = '';
-    
-    storage.forEach(async el=>{
-      let json = await searchCocById(el)
-      let result = json.drinks[0];
-      myCoc.push(result)
-      mark()
-    })
-    
 
+    storage.forEach(async el => {
+      let json = await searchCocById(el);
+      let result = json.drinks[0];
+      myCoc.push(result);
+      mark();
+    });
 
     // });
   } else {
@@ -98,7 +87,7 @@ function mark() {
 
   shownCocktails = myCoc.slice(0, cocktailsPerPage);
   cocList.innerHTML = shownCocktails.map(letMarkupMyCoc).join('');
-  console.log('dsfg');
+  // console.log('dsfg');
 
   actionOnLikeBtn();
   showModalInfo();

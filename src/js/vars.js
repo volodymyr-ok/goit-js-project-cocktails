@@ -134,9 +134,8 @@ export function arrowPagination(
 ) {
   const prevPageBtn = document.querySelector('.navigation__btn-prev');
   const nextPageBtn = document.querySelector('.navigation__btn-next');
-  // let currentPage = +document.querySelector('.active-nav').textContent;
   let numsQuantity = Math.ceil(responseArray.length / cocktailsPerPage);
-  console.log('currentPage', currentPage);
+  // console.log('currentPage', currentPage);
 
   prevPageBtn.addEventListener('click', () => {
     console.log('numsQuantity', numsQuantity);
@@ -147,10 +146,10 @@ export function arrowPagination(
     const startPagination = (currentPage - 1) * cocktailsPerPage;
     const endPagination = startPagination + cocktailsPerPage;
 
-    console.log('cocktailsPerPage', cocktailsPerPage);
-    console.log('startPagination', startPagination);
-    console.log('endPagination', endPagination);
-    console.log('currentPage', currentPage);
+    // console.log('cocktailsPerPage', cocktailsPerPage);
+    // console.log('startPagination', startPagination);
+    // console.log('endPagination', endPagination);
+    // console.log('currentPage', currentPage);
     const shownCocktailsArray = responseArray.slice(
       startPagination,
       endPagination
@@ -186,12 +185,12 @@ export function arrowPagination(
       }
     });
 
-    console.log('cocktailsPerPage', cocktailsPerPage);
-    console.log('startPagination', startPagination);
-    console.log('endPagination', endPagination);
-    console.log('currentPage', currentPage);
+    // console.log('cocktailsPerPage', cocktailsPerPage);
+    // console.log('startPagination', startPagination);
+    // console.log('endPagination', endPagination);
+    // console.log('currentPage', currentPage);
     if (currentPage === numsQuantity) {
-      // nextPageBtn.disabled = true;
+      nextPageBtn.disabled = true;
       return;
     }
     showModalInfo();

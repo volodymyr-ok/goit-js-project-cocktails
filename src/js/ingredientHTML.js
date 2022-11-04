@@ -1,8 +1,11 @@
-import { storageIngr, markupModalIngr, srchByIngr, modalIngrInteraction } from "./yuras-m";
+import {
+  storageIngr,
+  markupModalIngr,
+  srchByIngr,
+  modalIngrInteraction,
+} from './yuras-m';
 
-import { checkLocalStorageIngr } from "./check-local-storageIngr";
-
-
+import { checkLocalStorageIngr } from './check-local-storageIngr';
 
 const openBtn = document.querySelector('.menu-open');
 const menu = document.querySelector('.menu-burger');
@@ -15,7 +18,7 @@ const arrowIcon = document.querySelector('.arrow-icon');
 
 openBtn.addEventListener('click', () => {
   menu.classList.remove('is-hidden');
-  console.log('click');
+  // console.log('click');
 });
 closeBtn.addEventListener('click', () => {
   menu.classList.add('is-hidden');
@@ -42,74 +45,67 @@ favoriteMenuDesk.addEventListener('mouseout', () => {
   }, 3000);
 });
 
-
 const ingrList = document.querySelector('.favorite-ingridients');
 const emptyText = document.querySelector('.empty-text');
-console.log(ingrList)
+// console.log(ingrList);
 
 let ingrPerPage;
 
 let myIngr = [];
 
-console.log( localStorage.getItem('drinksIngrId'))
-
+// console.log(localStorage.getItem('drinksIngrId'));
 
 getMurkupIngr();
 
 function getMurkupIngr() {
-
   if (storageIngr.length > 0) {
     emptyText.textContent = '';
-    
-    storageIngr.forEach(async el=>{
-      let json = await searchIngrById(el)
-      console.log(json)
-      
+
+    storageIngr.forEach(async el => {
+      let json = await searchIngrById(el);
+      // console.log(json);
 
       let result = json.ingredients[0];
-      myIngr.push(result)
-      markIngr()
-    })
-
-} else {
+      myIngr.push(result);
+      markIngr();
+    });
+  } else {
     ingrList.innerHTML = '';
     emptyText.innerHTML = ` You haven't added any <br />favorite cocktails yet`;
   }
 }
 
-function markIngr (){
-    let shownIngr
-    
-    if (innerWidth < 768) {
+function markIngr() {
+  let shownIngr;
+
+  if (innerWidth < 768) {
     ingrPerPage = 3;
   } else if (innerWidth >= 768 && innerWidth < 1280) {
     ingrPerPage = 6;
   } else if (innerWidth >= 1280) {
     ingrPerPage = 9;
   }
-  
+
   shownIngr = myIngr.slice(0, ingrPerPage);
   ingrList.innerHTML = shownIngr.map(letMarkupMyIngr).join('');
-  console.log('dsfg')
-  
-  
-   actionOnLikeBtnIngr()
-//    showModalInfo()
-    onpenModalIngredient()
-   
+  // console.log('dsfg');
+
+  actionOnLikeBtnIngr();
+  //    showModalInfo()
+  onpenModalIngredient();
+}
+
+async function searchIngrById(el) {
+  try {
+    return await fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=${el}`
+    ).then(response => response.json());
+  } catch (error) {
+    console.log('Помилка при ФЕТЧІ ===> ', error);
   }
-  
-  async function searchIngrById(el) {
-    try {
-      return await fetch(
-        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=${el}`
-      ).then(response => response.json());
-    } catch (error) {
-      console.log('Помилка при ФЕТЧІ ===> ', error);
-    }
-  }
-  function letMarkupMyIngr(el) {
-    return `
+}
+function letMarkupMyIngr(el) {
+  return `
       <li class="coctails__item-ingr">
         <h2 class="cocktails__item-title">${el.strIngredient}</h2>
         <p class="cocktails__item-text">${el.strType}</p>
@@ -127,62 +123,53 @@ function markIngr (){
         </div>
       </li>
       `;
+}
+
+export function actionOnLikeBtnIngr() {
+  const btnLike = document.querySelectorAll('.btn__like');
+
+  btnLike.forEach(el => el.addEventListener('click', userChoise));
+
+  function userChoise(event) {
+    // console.log(event);
+    if (event.target.id.length === 0) {
+      return;
+    }
+    if (!storageIngr.includes(event.target.id)) {
+      storageIngr.push(event.target.id);
+      event.path[0].lastElementChild.classList.add('active-like-btn');
+      event.path[0].firstChild.textContent = 'Remove';
+    } else {
+      storageIngr.splice(storageIngr.indexOf(event.target.id), 1);
+      event.path[0].lastElementChild.classList.remove('active-like-btn');
+      event.path[0].firstChild.textContent = 'Add to';
+    }
+    localStorage.setItem('drinksIngrId', storageIngr);
   }
+}
 
+export function onpenModalIngredient() {
+  const ingredientLink = document.querySelectorAll('.btn__read-more');
 
-  export function actionOnLikeBtnIngr() {
- 
-
-    const btnLike = document.querySelectorAll('.btn__like');
-   
-     btnLike.forEach(el => el.addEventListener('click', userChoise));
-   
-     function userChoise(event) {
-       console.log(event)
-       if (event.target.id.length === 0) {
-         return;
-       }
-       if (!storageIngr.includes(event.target.id)) {
-         storageIngr.push(event.target.id);
-         event.path[0].lastElementChild.classList.add('active-like-btn');
-         event.path[0].firstChild.textContent = 'Remove';
-
-       } else {
-         storageIngr.splice(storageIngr.indexOf(event.target.id), 1);
-         event.path[0].lastElementChild.classList.remove('active-like-btn');
-         event.path[0].firstChild.textContent = 'Add to';
-        
-       }
-       localStorage.setItem('drinksIngrId', storageIngr);
-     }
-   }
-
-   export function onpenModalIngredient() {
-
-    const ingredientLink = document.querySelectorAll('.btn__read-more');
-  
-    ingredientLink.forEach(el => el.addEventListener('click', openIngrModal));
-    let resultIngr;
-    async function openIngrModal(event) {
+  ingredientLink.forEach(el => el.addEventListener('click', openIngrModal));
+  let resultIngr;
+  async function openIngrModal(event) {
     //   event.preventDefault();
-      console.log(event.target.id)
-      let ingr = event.target.id;
+    // console.log(event.target.id);
+    let ingr = event.target.id;
 
-      const jsonn = await srchByIngr(ingr);
-      console.log(jsonn)
+    const jsonn = await srchByIngr(ingr);
+    // console.log(jsonn);
 
     //   console.log(storageIngr)
-  
 
-      resultIngr = jsonn.ingredients[0];
+    resultIngr = jsonn.ingredients[0];
 
-      let a = resultIngr.idIngredient
-    console.log(a)
-    let res = checkLocalStorageIngr(a)
+    let a = resultIngr.idIngredient;
+    // console.log(a);
+    let res = checkLocalStorageIngr(a);
 
-      
-
-      markupModalIngr(resultIngr, res);
-      modalIngrInteraction();
-    }
-  } 
+    markupModalIngr(resultIngr, res);
+    modalIngrInteraction();
+  }
+}

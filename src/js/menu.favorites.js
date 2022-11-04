@@ -9,7 +9,7 @@ const arrowIcon = document.querySelector('.arrow-icon');
 
 openBtn.addEventListener('click', () => {
   menu.classList.remove('is-hidden');
-  console.log('click');
+  // console.log('click');
 });
 closeBtn.addEventListener('click', () => {
   menu.classList.add('is-hidden');

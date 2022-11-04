@@ -1,11 +1,13 @@
 // import { values } from "lodash"
 
-import { checkLocalStorage } from "./check-local-storage";
-import { checkLocalStorageIngr } from "./check-local-storageIngr";
+import { checkLocalStorage } from './check-local-storage';
+import { checkLocalStorageIngr } from './check-local-storageIngr';
 
 export const storageIngr = [];
 
-export const markupModalIng = document.querySelector('.local-storage-ingredient');
+export const markupModalIng = document.querySelector(
+  '.local-storage-ingredient'
+);
 export function onpenModalIngredient() {
   const ingredientLink = document.querySelectorAll('.modal-link');
 
@@ -18,18 +20,18 @@ export function onpenModalIngredient() {
     const json = await srchByIngr(ingr);
     resultIngr = json.ingredients[0];
 
-    console.log(resultIngr);
+    // console.log(resultIngr);
 
-    console.log(storageIngr)
-    let a = resultIngr.idIngredient
-    console.log(a)
-    let res = checkLocalStorageIngr(a)
+    // console.log(storageIngr);
+    let a = resultIngr.idIngredient;
+    // console.log(a);
+    let res = checkLocalStorageIngr(a);
 
     markupModalIngr(resultIngr, res);
 
     modalIngrInteraction();
   }
-} 
+}
 
 export function markupModalIngr(resultIngr, res) {
   return (markupModalIng.innerHTML = `<div id="modal" class="modall">
@@ -64,7 +66,7 @@ export function markupModalIngr(resultIngr, res) {
 
 export async function srchByIngr(ingr) {
   try {
-    console.log('перед фетчом');
+    // console.log('перед фетчом');
     return await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${ingr}`
     ).then(response => response.json());
@@ -82,18 +84,17 @@ export function modalIngrInteraction() {
   btnClosee.addEventListener('click', modalClose);
 
   function modalClose(event) {
-    console.log(event.target);
+    // console.log(event.target);
     modal.classList.add('hidden-modal');
   }
 
   btnAdd.addEventListener('click', use);
   function use(event) {
-    console.log('event.target >>>', event.target);
-    console.log('event.target.id >>>', event.target.id);
+    // console.log('event.target >>>', event.target);
+    // console.log('event.target.id >>>', event.target.id);
 
     const btnLike = document.querySelectorAll('.btn__like');
-    console.log(btnLike)
-   
+    // console.log(btnLike);
 
     if (event.target.id.length === 0) {
       return;
@@ -105,22 +106,22 @@ export function modalIngrInteraction() {
       storageIngr.push(event.target.id);
       // event.path[0].lastElementChild.classList.add('active-like-btn');
       event.path[0].firstChild.textContent = 'Remove from favorite';
-      btnLike.forEach(el=>{
-        if(event.target.id === el.id){
+      btnLike.forEach(el => {
+        if (event.target.id === el.id) {
           el.lastElementChild.classList.add('active-like-btn');
-            el.firstChild.textContent = 'Remove';
+          el.firstChild.textContent = 'Remove';
         }
-      })
+      });
     } else {
       storageIngr.splice(storageIngr.indexOf(event.target.id), 1);
       // event.path[0].lastElementChild.classList.remove('active-like-btn');
       event.path[0].firstChild.textContent = 'Add to favorite';
-      btnLike.forEach(el=>{
-        if(el.id===event.target.id){
+      btnLike.forEach(el => {
+        if (el.id === event.target.id) {
           el.lastElementChild.classList.remove('active-like-btn');
           el.firstChild.textContent = 'Add to';
         }
-      })
+      });
     }
     localStorage.setItem('drinksIngrId', storageIngr);
   }

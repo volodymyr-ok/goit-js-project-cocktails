@@ -1,49 +1,46 @@
-import { modalInteraction } from "./modal-interaction";
-import { checkLocalStorage } from "./check-local-storage";
+import { modalInteraction } from './modal-interaction';
+import { checkLocalStorage } from './check-local-storage';
 
 export function showModalInfo() {
-    const btnReadMore = document.querySelectorAll('.btn__read-more');
-    btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
-  }
- 
-  export async function userOpenMOdal(event) {
-    if (event.target.id.length === 0) {
-      console.log('event.target', event.target);
-  
-      return;
-    } else {
-       let id = event.target.id;
-        
-      const json = await srchById(id);
-      // console.log('json', json);
-      // console.log('json------------',json)
-      let myIngidient = json.drinks[0];
-      // console.log('myIngidient [0] --------------', myIngidient);
-      
-      let myIngidientsList = [];
-      let myIngidientsRecipe = [];
+  const btnReadMore = document.querySelectorAll('.btn__read-more');
+  btnReadMore.forEach(el => el.addEventListener('click', userOpenMOdal));
+}
 
-        let localStorageBtn = checkLocalStorage(id)
-      
+export async function userOpenMOdal(event) {
+  if (event.target.id.length === 0) {
+    // console.log('event.target', event.target);
 
-      for (let ingr in myIngidient) {
-        if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
-          myIngidientsList.push(myIngidient[ingr]);
-        }
+    return;
+  } else {
+    let id = event.target.id;
+
+    const json = await srchById(id);
+    // console.log('json', json);
+    // console.log('json------------',json)
+    let myIngidient = json.drinks[0];
+    // console.log('myIngidient [0] --------------', myIngidient);
+
+    let myIngidientsList = [];
+    let myIngidientsRecipe = [];
+
+    let localStorageBtn = checkLocalStorage(id);
+
+    for (let ingr in myIngidient) {
+      if (ingr.includes('strIngredient') && myIngidient[ingr] !== null) {
+        myIngidientsList.push(myIngidient[ingr]);
       }
-      for (let ingr in myIngidient) {
-        if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
-          myIngidientsRecipe.push(myIngidient[ingr]);
-        }
+    }
+    for (let ingr in myIngidient) {
+      if (ingr.includes('strMeasur') && myIngidient[ingr] !== null) {
+        myIngidientsRecipe.push(myIngidient[ingr]);
       }
+    }
 
-    
-   
     // console.log('myIngidientsList', myIngidientsList);
     // console.log('myIngidientsRecipe', myIngidientsRecipe);
 
     const local = document.querySelector('.local-storage-ingr');
-    console.log(local);
+    // console.log(local);
 
     let number = -1;
 
@@ -54,16 +51,20 @@ export function showModalInfo() {
           myIngidientsRecipe[number] || ''
         }
            <a href="#" class="modal-link coctal-link">${el}</a> </li>`;
-        })
-        .join('');
-  
-      createCocktailModalMarkup(localStorageBtn, listItems, myIngidient);
-  
-      modalInteraction();
-      // onpenModalIngredient();
- 
-      function createCocktailModalMarkup(localStorageBtn, listItems, { strDrinkThumb, strDrink, strInstructions, idDrink }) {
-        return (local.innerHTML = `<div id="modal-koktel" class="modal-coctal modal">
+      })
+      .join('');
+
+    createCocktailModalMarkup(localStorageBtn, listItems, myIngidient);
+
+    modalInteraction();
+    // onpenModalIngredient();
+
+    function createCocktailModalMarkup(
+      localStorageBtn,
+      listItems,
+      { strDrinkThumb, strDrink, strInstructions, idDrink }
+    ) {
+      return (local.innerHTML = `<div id="modal-koktel" class="modal-coctal modal">
           <div class="modal-content container">
             <div class="first-part-decor">
               <img src="${strDrinkThumb}" alt="${strDrink}" class="img-coctal-desctop" />
@@ -102,7 +103,7 @@ export function showModalInfo() {
 
 async function srchById(id) {
   try {
-    console.log('перед фетчом');
+    // console.log('перед фетчом');
     return await fetch(
       `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
     ).then(response => response.json());

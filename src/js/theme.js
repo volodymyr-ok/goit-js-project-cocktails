@@ -1,6 +1,6 @@
 const input = document.querySelector('.checkbox-input');
 
-console.log((input.checked = true));
+// console.log((input.checked = true));
 document.querySelector('.checkbox-input').addEventListener('click', event => {
   if (localStorage.getItem('theme') === 'dark') {
     localStorage.removeItem('theme');
