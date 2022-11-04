@@ -67,8 +67,7 @@ export function pageNumListeners(
   shownCocktailsArray,
   responseArray,
   cocktailList,
-  pageNumButtons,
-  counter
+  pageNumButtons
 ) {
   for (let pageNumButton of pageNumButtons) {
     const numOfPage = pageNumButton.textContent;
@@ -127,29 +126,29 @@ export function removeActiveLeter() {
 }
 
 export function arrowPagination(
-  counter,
   responseArray,
   cocktailsPerPage,
   pageNumButtons,
-  cocktailList
+  cocktailList,
+  currentPage
 ) {
   const prevPageBtn = document.querySelector('.navigation__btn-prev');
   const nextPageBtn = document.querySelector('.navigation__btn-next');
-  let currentPage = +document.querySelector('.active-nav').textContent;
+  // let currentPage = +document.querySelector('.active-nav').textContent;
   let numsQuantity = Math.ceil(responseArray.length / cocktailsPerPage);
   console.log('currentPage', currentPage);
 
   prevPageBtn.addEventListener('click', () => {
     console.log('numsQuantity', numsQuantity);
-    // if (currentPage === 1) {
-    //     return
-    // }
-    currentPage--;
-    console.log('cocktailsPerPage', cocktailsPerPage);
-    const startPagination =
-      (currentPage - 1) * cocktailsPerPage + cocktailsPerPage;
-    console.log('startPagination', startPagination);
+    if (currentPage <= 1) {
+      return;
+    }
+    currentPage -= 1;
+    const startPagination = (currentPage - 1) * cocktailsPerPage;
     const endPagination = startPagination + cocktailsPerPage;
+
+    console.log('cocktailsPerPage', cocktailsPerPage);
+    console.log('startPagination', startPagination);
     console.log('endPagination', endPagination);
     console.log('currentPage', currentPage);
     const shownCocktailsArray = responseArray.slice(
@@ -186,8 +185,14 @@ export function arrowPagination(
         btn.classList.add('active-nav');
       }
     });
+
+    console.log('cocktailsPerPage', cocktailsPerPage);
+    console.log('startPagination', startPagination);
+    console.log('endPagination', endPagination);
+    console.log('currentPage', currentPage);
     if (currentPage === numsQuantity) {
-      nextPageBtn.disabled = true;
+      // nextPageBtn.disabled = true;
+      return;
     }
     showModalInfo();
     actionOnLikeBtn();

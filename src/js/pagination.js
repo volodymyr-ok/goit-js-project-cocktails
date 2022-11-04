@@ -156,11 +156,11 @@ async function actionOnSearch(queryParams) {
     cocktailList.innerHTML = shownCocktailsArray.map(createMarkup).join('');
 
     if (responseArray.length > shownCocktailsArray.length) {
-      let counter = 1;
       createNumBar(numsQuantity, htmlNumBar, responseArray, cocktailsPerPage);
 
       const pageNumButtons = document.querySelectorAll('.pages__link');
       pageNumButtons[0].classList.add('active-nav');
+      let currentPage = +document.querySelector('.active-nav').textContent;
       const navigationNums = document.querySelector('.pages');
 
       navigationNums.addEventListener('click', event => {
@@ -169,7 +169,7 @@ async function actionOnSearch(queryParams) {
         }
         showModalInfo();
         actionOnLikeBtn();
-        console.log(+event.target.textContent);
+        // console.log(+event.target.textContent);
       });
 
       pageNumListeners(
@@ -177,18 +177,16 @@ async function actionOnSearch(queryParams) {
         shownCocktailsArray,
         responseArray,
         cocktailList,
-        pageNumButtons,
-        counter
+        pageNumButtons
       );
 
-      console.log(counter);
       createArrows(htmlNumBar);
       arrowPagination(
-        counter,
         responseArray,
         cocktailsPerPage,
         pageNumButtons,
-        cocktailList
+        cocktailList,
+        currentPage
       );
     }
     showModalInfo();
