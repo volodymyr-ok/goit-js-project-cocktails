@@ -90,6 +90,35 @@
   }
 }
 
+.coctails__item-ingr {
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-end; */
+  justify-content: flex-end;
+
+  min-width: 280px;
+  min-height:177px;
+  text-align: center;
+  border: 1px solid #fd5103;
+  border-radius: 4px;
+  padding-bottom: 24px;
+  overflow: hidden;
+  @include tablet {
+    min-width: 335px;
+    max-width: 335px;
+    min-height: 205px;
+    
+    padding-bottom: 20px;
+  }
+
+  @include desktop {
+    min-width: 395px;
+    max-width: 397px;
+    min-height: 221px;
+  }
+
+}
+
 // @media screen and (min-width: 768px) {
 //   .coctails__item img {
 //     width: 335px;
@@ -191,12 +220,12 @@
     display: flex;
   }
 }
-.navigation__btn-next:hover,
-.navigation__btn-next:focus,
-.navigation__btn-prev:hover,
-.navigation__btn-prev:focus {
-  fill: #fd5103;
-}
+// .navigation__btn-next:hover,
+// .navigation__btn-next:focus,
+// .navigation__btn-prev:hover,
+// .navigation__btn-prev:focus {
+//   fill: #fd5103;
+// }
 
 .navigation__btn-prev,
 .navigation__btn-next {
@@ -214,34 +243,34 @@
   align-items: center;
   gap: 8px;
   display: flex;
-  &__item {
-    width: 32px;
-    height: 32px;
-    color: #1e1e1e;
-    border: 1px solid #fd5103;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.25;
-    display: flex;
-    &-load {
-      color: #fe7031;
-      font-family: Montserrat;
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.25;
-    }
-  }
+  // &__item {
+  //   width: 32px;
+  //   height: 32px;
+  //   color: #1e1e1e;
+  //   border: 1px solid #fd5103;
+  //   border-radius: 50%;
+  //   justify-content: center;
+  //   align-items: center;
+  //   font-family: Montserrat;
+  //   font-size: 16px;
+  //   font-style: normal;
+  //   font-weight: 400;
+  //   line-height: 1.25;
+  //   display: flex;
+  //   &-load {
+  //     color: #fe7031;
+  //     font-family: Montserrat;
+  //     font-size: 16px;
+  //     font-weight: 700;
+  //     line-height: 1.25;
+  //   }
+  // }
 }
 
-.active-nav {
-  color: #fff;
-  background-color: #fe7031;
-}
+// .active-nav {
+//   color: #fff;
+//   background-color: #fe7031;
+// }
 
 .active-like-btn {
   fill: #fd5103;

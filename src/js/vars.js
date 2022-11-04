@@ -1,3 +1,6 @@
+import { actionOnLikeBtn } from './yuras';
+import { showModalInfo } from './modal-coctail';
+
 export const refs = {
   cocktailList: document.querySelector('.cocktails__list'),
   srchInput: document.querySelector('.input-tablet'),
@@ -9,7 +12,6 @@ export const refs = {
   title: document.querySelector('.cocktails__title'),
   emptySearchResult: document.querySelector('.sorry-image'),
   htmlNumBar: document.querySelector('.navigation'),
-  //   pageNums: document.querySelectorAll('.pages__link'),
 };
 
 export function fetchBySrch(URL, filter, entrie) {
@@ -19,6 +21,7 @@ export function fetchBySrch(URL, filter, entrie) {
     console.log('Помилка при ФЕТЧІ ===> ', error);
   }
 }
+
 export function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
   return `
 <li class="coctails__item">
@@ -39,7 +42,50 @@ export function createMarkup({ strDrinkThumb, strDrink, idDrink }) {
 </li>
 `;
 }
-export function createArrows(whereInsert) {
+
+export function createNumBar(
+  numsQuantity,
+  htmlNumBar,
+  responseArray,
+  cocktailsPerPage
+) {
+  const arrayOfPageNumbers = [];
+  numsQuantity = Math.ceil(responseArray.length / cocktailsPerPage);
+
+  for (let numberOfPage = 1; numberOfPage <= numsQuantity; numberOfPage++) {
+    arrayOfPageNumbers.push(
+      `<button class="pages__link" type='button'>${numberOfPage}</button>`
+    );
+  }
+
+  htmlNumBar.innerHTML = `
+      <li class="navigation__item pages">${arrayOfPageNumbers.join('')}</li>`;
+}
+
+export function pageNumListeners(
+  cocktailsPerPage,
+  shownCocktailsArray,
+  responseArray,
+  cocktailList,
+  pageNumButtons,
+  counter
+) {
+  for (let pageNumButton of pageNumButtons) {
+    const numOfPage = pageNumButton.textContent;
+    const pageStart = (numOfPage - 1) * cocktailsPerPage;
+    const pageEnd = pageStart + cocktailsPerPage;
+
+    pageNumButton.addEventListener('click', event => {
+      pageNumButtons.forEach(num => num.classList.remove('active-nav'));
+      event.target.classList.add('active-nav');
+
+      shownCocktailsArray = responseArray.slice(pageStart, pageEnd);
+      cocktailList.innerHTML = shownCocktailsArray.map(createMarkup).join('');
+    });
+  }
+}
+
+export function createArrows(htmlNumBar) {
   const prevArrow = `
       <li class="navigation__item arrows">
         <button class="navigation__btn-prev" type="button">
@@ -67,33 +113,83 @@ export function createArrows(whereInsert) {
     </li>
       `;
 
-  whereInsert.insertAdjacentHTML('afterbegin', prevArrow);
-  whereInsert.insertAdjacentHTML('beforeend', lastArrow);
+  htmlNumBar.insertAdjacentHTML('afterbegin', prevArrow);
+  htmlNumBar.insertAdjacentHTML('beforeend', lastArrow);
 }
-export function pageNumListeners(
-  cocktailsPerPage,
-  shownCocktailsArray,
-  responseArray,
-  cocktailList
-) {
-  const pageNums = document.querySelectorAll('.pages__link');
 
-  for (let pageNum of pageNums) {
-    const numOfPage = pageNum.textContent;
-    const pageStart = (numOfPage - 1) * cocktailsPerPage;
-    const pageEnd = pageStart + cocktailsPerPage;
-
-    pageNum.addEventListener('click', () => {
-      shownCocktailsArray = responseArray.slice(pageStart, pageEnd);
-      cocktailList.innerHTML = shownCocktailsArray.map(createMarkup).join('');
-    });
-  }
-}
 export function removeActiveLeter() {
   const curLetter = document.querySelectorAll('.letter-item');
   curLetter.forEach(letter => {
     if (letter.classList.contains('current-letter')) {
       letter.classList.remove('current-letter');
     }
+  });
+}
+
+export function arrowPagination(
+  counter,
+  responseArray,
+  cocktailsPerPage,
+  pageNumButtons,
+  cocktailList
+) {
+  const prevPageBtn = document.querySelector('.navigation__btn-prev');
+  const nextPageBtn = document.querySelector('.navigation__btn-next');
+  let currentPage = +document.querySelector('.active-nav').textContent;
+  let numsQuantity = Math.ceil(responseArray.length / cocktailsPerPage);
+  console.log('currentPage', currentPage);
+
+  prevPageBtn.addEventListener('click', () => {
+    console.log('numsQuantity', numsQuantity);
+    // if (currentPage === 1) {
+    //     return
+    // }
+    currentPage--;
+    console.log('cocktailsPerPage', cocktailsPerPage);
+    const startPagination =
+      (currentPage - 1) * cocktailsPerPage + cocktailsPerPage;
+    console.log('startPagination', startPagination);
+    const endPagination = startPagination + cocktailsPerPage;
+    console.log('endPagination', endPagination);
+    console.log('currentPage', currentPage);
+    const shownCocktailsArray = responseArray.slice(
+      startPagination,
+      endPagination
+    );
+    cocktailList.innerHTML = shownCocktailsArray.map(createMarkup).join('');
+
+    pageNumButtons.forEach(btn => {
+      btn.classList.remove('active-nav');
+      if (+btn.textContent === currentPage) {
+        btn.classList.add('active-nav');
+      }
+    });
+    showModalInfo();
+    actionOnLikeBtn();
+  });
+
+  nextPageBtn.addEventListener('click', event => {
+    const startPagination =
+      (currentPage - 1) * cocktailsPerPage + cocktailsPerPage;
+    const endPagination = startPagination + cocktailsPerPage;
+    currentPage++;
+
+    const shownCocktailsArray = responseArray.slice(
+      startPagination,
+      endPagination
+    );
+    cocktailList.innerHTML = shownCocktailsArray.map(createMarkup).join('');
+
+    pageNumButtons.forEach(btn => {
+      btn.classList.remove('active-nav');
+      if (+btn.textContent === currentPage) {
+        btn.classList.add('active-nav');
+      }
+    });
+    if (currentPage === numsQuantity) {
+      nextPageBtn.disabled = true;
+    }
+    showModalInfo();
+    actionOnLikeBtn();
   });
 }
