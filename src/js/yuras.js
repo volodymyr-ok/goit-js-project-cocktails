@@ -13,12 +13,13 @@ export function actionOnLikeBtn() {
     }
     if (!storage.includes(event.target.id)) {
       storage.push(event.target.id);
-      event.path[0].lastElementChild.classList.add('active-like-btn');
-      event.path[0].firstChild.textContent = 'Remove';
+      // console.log( event.target.lastElementChild)
+      event.target.lastElementChild.classList.add('active-like-btn');
+      event.target.firstChild.textContent = 'Remove';
     } else {
       storage.splice(storage.indexOf(event.target.id), 1);
-      event.path[0].lastElementChild.classList.remove('active-like-btn');
-      event.path[0].firstChild.textContent = 'Add to';
+      event.target.lastElementChild.classList.remove('active-like-btn');
+      event.target.firstChild.textContent = 'Add to';
     }
     localStorage.setItem('drinksId', storage);
   }
